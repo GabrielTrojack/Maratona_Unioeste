@@ -7,14 +7,14 @@ const Navbar = () => {
     <nav className="navbar">
         <div className="navbar-container">
             <ul className="nav-links">
-                <li>Início</li>
-                <li>Materiais</li>
-                <li>Participe</li>
-                <li>Mural</li>
-                <li>Fazer post</li>
-                <li>Criar aula</li>
+                <p>Início</p>
+                <p>Materiais</p>
+                <p>Participe</p>
+                <p>Mural</p>
+                <p>Fazer post</p>
+                <p>Criar aula</p>
+              <img src={logo} alt="Logo MU" className="logo-img" />
             </ul>
-            <img src={logo} alt="Logo MU" className="logo-img" />
         </div>
     </nav>
   );

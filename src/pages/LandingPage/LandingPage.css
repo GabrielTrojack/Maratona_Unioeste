@@ -1,46 +1,52 @@
 .landing-page {
-  width: 100vw; /* ocupa toda a largura da viewport */
-  height: 100vh; /* ocupa toda a altura */
-  background: linear-gradient(to bottom right, #31006b, #5e00a1);
+  width: 100vw; 
+  height: 100vh;
+  background: #560DAE;
   color: white;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+    overflow-y: auto;      
+  overflow-x: hidden;
   margin: 0;
   padding: 0;
 }
-
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  z-index: 100;
+.landing-content{
+    display: flex;
+    flex-direction: column;
 }
 
-.landing-content {
+.hero {
   flex: 1;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
-  text-align: center;
-  margin-top: 80px; /* evita sobreposição com a navbar */
+  margin-top: 3rem; 
   padding: 0 20px;
+  width: 100%;
 }
 
-.landing-content h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+
+.join button{
+  width: 100%;
+  border-radius: 0.3rem !important;
 }
 
-.landing-content p {
-  font-size: 1.2rem;
+
+.hero h1 {
+  font-size: 8rem;
+  margin-bottom: 0.1rem;
+}
+
+.hero p {
+  color: #ffbe2e;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 2rem;
   max-width: 600px;
   margin-bottom: 30px;
 }
 
-.landing-content button {
+.hero button {
   background-color: #ffbe2e;
   color: #4b0082;
   font-weight: bold;
@@ -52,6 +58,45 @@
   transition: 0.2s ease;
 }
 
-.landing-content button:hover {
+.hero button:hover {
   transform: scale(1.05);
+}
+
+.about{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 15rem; 
+  padding: 0 20px;
+  width: 100%;
+}
+
+.about p {
+  color: #560DAE;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin-bottom: 30px;
+}
+
+.about {
+  position: relative;
+  background: #f3f3f3; /* cor de fundo da section clara */
+  padding: 80px 0;
+  z-index: 1;
+}
+
+.about::before {
+  content: "";
+  position: absolute;
+  top: 1rem;       /* controla o quanto a diagonal sobe */
+  left: 0;
+  width: 100%;
+  height: 300px;    /* controla o tamanho da área inclinada */
+  background: #f3f3f3; /* mesma cor da section about */
+  transform: skewY(-15deg);  /* ÂNGULO DA DIAGONAL */
+  transform-origin: top left;
+  z-index: -1;
 }
