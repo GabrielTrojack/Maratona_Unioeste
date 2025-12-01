@@ -1,0 +1,64 @@
+.login-page {
+  width: 100vw; /* ocupa toda a largura da viewport */
+  height: 100vh; /* ocupa toda a altura */
+  background: linear-gradient(to bottom right, #31006b, #5e00a1);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 100;
+}
+
+.login-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.login-content input {
+  color: #000000;
+  background-color: #ffffff;
+  padding: 0.7rem 3rem;
+  border-radius: 8px;
+  width: fit-content;
+  margin-top: 0.3rem;
+}
+
+.login-content button {
+  background-color: #2E8B57;
+  color: #ffffff;
+  padding: 0.7rem 3rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.2s ease;
+  margin-top: 1rem;
+  width: 100%;
+  
+}
+
+.landing-content button:hover {
+  transform: scale(1.05);
+}
+
+.login-content p {
+  color: #ffffff;
+  font-size: x-large;
+  font-weight: bold;  
+}
+
