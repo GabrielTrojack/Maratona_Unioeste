@@ -1,15 +1,9 @@
 .navbar {
   position: fixed;
-  /* fixa no topo */
   top: 0;
-  /* encosta no topo da tela */
   left: 0;
-  /* ocupa desde a esquerda */
   width: 100%;
-  /* <--- CORRIGIDO PARA 100% */
   z-index: 1000;
-  /* fica por cima do conteúdo */
-
   display: flex;
   justify-content: center;
   align-items: center;

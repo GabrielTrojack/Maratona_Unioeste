@@ -4,7 +4,7 @@ import Login from "./pages/AdmLogin/AdmLogin";
 
 
 function App() {
-  return <Login />;
+  return <Landing />;
 }
 
 export default App;
