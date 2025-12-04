@@ -1,6 +1,7 @@
-
 .footer {
+  background-color: #560DAE;
   width: 100%;
+  bottom: 0;
   padding: 20px 60px;
   display: flex;
   justify-content: center;
@@ -9,6 +10,7 @@
   background: #560DAE;
   color: white;
   font-weight: 500;
+  overflow: hidden;
 }
 
 .footer-container {
