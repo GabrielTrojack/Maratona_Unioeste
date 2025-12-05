@@ -21,12 +21,22 @@ input{
   padding: 2%;
 }
 
-input::placeholder{
+textarea{
+  resize: none;
+  border: 0.5px solid #d0d0d0;
+  border-radius: 8px;
+  height: 9em;
+  margin-right: 0.5rem;
+  margin-left: o.5rem;
+  padding: 2%;
+}
+
+input::placeholder,textarea::placeholder{
   color: #6C6C80;       
   opacity: 0.5 ;         
 }
 
-input:focus {
+input:focus,textarea:focus {
   border-color: #560DAE; 
   outline: none;       
 }
@@ -103,6 +113,7 @@ input:focus {
 .downButton{
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   width: 95%;
   margin-top: auto;
   margin-bottom: 3%;
@@ -115,7 +126,6 @@ input:focus {
   justify-content: space-between;
   padding: 2%;
   align-items: center;
-  background-color: #6C6C80;
   border-style: none;
   border-radius: 0.5rem;
   height: 2.5rem;
@@ -126,6 +136,14 @@ input:focus {
 .downButton button:hover {
   transform: scale(1.01);
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.05);
+}
+
+.btn{
+  background-color: #6C6C80;
+}
+
+.btnConcluir{
+  background-color: #4CAF50;
 }
 
 
@@ -162,4 +180,31 @@ input:focus {
 .step.active {
   background: #511698;
   border-color: #511698;
+}
+
+.dificulty{
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  content: "";
+  height: 2.5rem;
+  width: 2.5rem;
+  border: 0.5px solid #d0d0d0;
+  border-radius: 8px;
+  margin-right: 1%;
+  margin-left: 1%;
+  z-index: 1;
+}
+.dificultWrapper-{
+  position: relative;
+  display: flex;
+}
+
+.dificulty img{
+  content: "";
+  height: 2rem;
+  width: 2rem;
+  opacity: 0.7;
+  z-index: 2;
 }
