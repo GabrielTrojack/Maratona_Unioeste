@@ -52,4 +52,5 @@
   width: clamp(4.5rem, 3vw, 3rem);
   height: clamp(4.5rem, 3vw, 3rem);
   object-fit: cover;
+  cursor: pointer;
 }

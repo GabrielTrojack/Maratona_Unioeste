@@ -13,7 +13,7 @@ const Navbar = () => {
                 <p>Mural</p>
                 <p>Fazer post</p>
                 <p>Criar aula</p>
-              <img src={logo} alt="Logo MU" className="logo-img" />
+              <img src={logo} alt="Logo MU" onClick={()=>console.log("inicio")} className="logo-img" />
             </ul>
         </div>
     </nav>

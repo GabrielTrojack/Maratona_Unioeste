@@ -19,6 +19,7 @@
   display: flex;
   align-items: center;  
   flex-direction: row;
+  justify-content: space-between;
   background-color: #511698;
   border-radius: 10px;
   cursor: pointer;
@@ -32,10 +33,43 @@
   justify-content: space-between;
 }
 
-.material-header button{
+.material-header button {
   background-color: #FFB329;
   border-style: none;
   color: #511698;
   border-radius: 8rem;
   width: 8%;
+  cursor: pointer;
+  transition: box-shadow 0.25s ease;
+}
+
+.material-header button:hover {
+  transform: scale(1.01);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.cnt{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 3%;
+}
+
+.buttons img{
+  margin: 3%;
+}
+
+.buttons img {
+  margin: 5%;
+  transition: transform 0.3s ease;
+}
+
+.buttons img:hover {
+  transform: rotate(3deg) scale(1.05);
 }
