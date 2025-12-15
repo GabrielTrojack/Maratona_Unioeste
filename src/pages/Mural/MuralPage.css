@@ -1,0 +1,105 @@
+.mural-page {
+  width: 100vw; 
+  height: 100vh;
+  background: #560DAE;
+  color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: auto;
+  margin-top: 6rem;
+  padding-left:5%;
+  padding-right:5%;
+}
+.noticias-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 85%;
+  padding: 20px;
+}
+
+.noticias-container .destaque {
+  color: black;
+  grid-column: span 2;
+  height: 25rem; 
+  flex-direction: row;
+  display: flex;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.card {
+  color: black;
+  background: #fff;
+  border-radius: 14px;
+  height: 25rem; 
+  overflow: hidden;
+}
+
+.undertitle{
+  background-color: #fff;
+  z-index: 2;
+}
+
+.card img {
+  width: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.card-img {
+  width: 100%;
+  height: 70%; 
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+}
+
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+.card-body {
+  display: grid;
+  background: white;
+  padding: 16px;
+}
+
+.destaque-body{
+  display: grid;
+  width: 50%;
+  height: 100%;
+  background: white;
+  padding: 16px;
+}
+
+.mural-page p {
+  align-self: flex-end;
+  justify-self: flex-end;
+  margin-bottom: 1rem;
+  color: #999696;
+  font-weight: 600;
+}
+
+.mural-page span {
+  background-color: #ffbe2e;
+  border-radius: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-weight: 650;
+}
+.span {
+  align-self: end;
+}
+
+h1 {
+  margin: 0;
+  font-weight: bold;
+  font-size: clamp(1rem,2.5vw, 5rem);
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

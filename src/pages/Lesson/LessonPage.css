@@ -1,0 +1,59 @@
+.lesson-page {
+  width: 100vw; 
+  height: 100vh;
+  background: #560DAE;
+  color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: auto;
+  margin-top: 6rem;
+  padding-left:5%;
+  padding-right:5%;
+}
+.lesson-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 85%;
+  padding: 20px;
+  border-radius: 10px;
+  background: #5d0ebe;
+}
+
+.video {
+  flex: 0 0 70%;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: none;
+  display: block;
+}
+
+.more p{
+  color: aliceblue;
+  font-weight: 700;
+}
+
+.link{
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #560DAE;
+  width: 100%;
+}
+
+.media {
+  height: 25rem;
+  display: flex;
+  width: 100%;
+  gap: 16px; 
+  align-items: stretch;
+}
+
+.more {
+  flex: 0 0 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  height: 100%;
+}

@@ -8,9 +8,8 @@ import setasesq from "../../assets/setasesq.svg";
 import diffEdit from "../../assets/edit.svg";
 import conclude from "../../assets/conclude.svg";
 
-
 const Material = () => {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const [difficulty, setDifficulty] = useState(null);
   const [open, setOpen] = useState(false);
 
@@ -45,6 +44,7 @@ const Material = () => {
                 <input className="modulo" placeholder="Link da aula" type="text" />
                 <img src={excluir} onClick={() => console.log("exclui aula")} />
               </div>
+              
             </div>
 
             <div className="downButton">
@@ -57,7 +57,6 @@ const Material = () => {
             </div>
           </>
         )}
-
 
         {step === 2 && (
           <>
