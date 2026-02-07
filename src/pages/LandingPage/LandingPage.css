@@ -1,15 +1,13 @@
 .landing-page {
   width: 100vw; 
-  height: 100vh;
   background: #560DAE;
   color: white;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  overflow-x: hidden;      
-  margin: 0;
-  padding: 0;
+  margin-top: 6rem;
 }
+
 .landing-content{
     display: flex;
     flex-direction: column;
@@ -54,17 +52,6 @@
   transform: scale(1.05);
 }
 
-.about{
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: -12rem; 
-  padding: 0 20px;
-  width: 100%;
-}
-
 .about p {
   color: #000000;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -73,70 +60,18 @@
   margin-bottom: 30px;
 }
 
-/* 1. Container Pai: Ponto de Referência e Fundo Roxo */
 .about {
-    position: relative; /* Necessário para posicionar .diag de forma absoluta */
-    background-color: #4a00b0; /* Cor roxa de fundo */
-    /* Ajuste o padding para dar espaço ao conteúdo */
-    padding: 50px; 
-    /* Garanta que o layout interno funcione, e.g., usando Flexbox */
-    display: flex;
-    gap: 20px;
-    align-items: center;
-}
-
-/* 2. O Fundo Cinza (.diag) */
-.diag {
-    /* Posicionamento para cobrir todo o container .about */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%; 
-    
-    /* Empilhamento: Coloca o elemento na camada de trás */
-    z-index: 1; 
-    
-    background-color: #e0e0e0;
-    
-    /* clip-path: polygon(cima esq, cima dir, baixo dir, baixo esq); */
-    clip-path: polygon(0% 45%, 100% 0%, 100% 100%, 0% 100%);
-}
-
-/* 3. O Conteúdo (Imagem e Texto) */
-.carlos-img, .we {
-    /* Necessário definir position para que o z-index tenha efeito */
-    position: relative; 
-    /* Empilhamento: Coloca o elemento na camada da frente */
-    z-index: 2; 
-    /* Outros estilos de layout... */
-}
-
-.about-wrapper {
   flex: 1;
+  background-color: #D9D9D9;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  /* margin-top: 3rem;  */
-  padding: 0 20px;
+  margin: 3rem; 
+  padding: 3rem; 
   width: 100%;
+  justify-content: flex-end;
 }
-
-.we {
-  max-width: 600px;
-}
-
-.we {
-  max-width: 600px;
-}
-
-
 .trofeu-img {
   width: clamp(40rem, 45vw, 40rem);
   height: clamp(70rem, 3vw, 3rem);
-}
-
-.carlos-img {
-  margin-top: -3rem;
-  width: clamp(40rem, 45vw, 40rem);
 }

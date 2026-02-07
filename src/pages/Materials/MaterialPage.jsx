@@ -25,6 +25,81 @@ const Material = () => {
               <img src={excluir} onClick={()=>console.log("exclui aula")} />
             </div>
           </div>
+
+          <div onClick={()=>console.log("vai pra aula")} className="aula">
+            <div className="cnt">
+              <img src={menu} alt="" />
+              <h1>Aula 1 - Sobre a maratona de programação</h1>
+            </div>
+            <div className="buttons">
+              <img src={editar} onClick={()=>console.log("edita aula")} />
+              <img src={excluir} onClick={()=>console.log("exclui aula")} />
+            </div>
+          </div><div onClick={()=>console.log("vai pra aula")} className="aula">
+            <div className="cnt">
+              <img src={menu} alt="" />
+              <h1>Aula 1 - Sobre a maratona de programação</h1>
+            </div>
+            <div className="buttons">
+              <img src={editar} onClick={()=>console.log("edita aula")} />
+              <img src={excluir} onClick={()=>console.log("exclui aula")} />
+            </div>
+          </div><div onClick={()=>console.log("vai pra aula")} className="aula">
+            <div className="cnt">
+              <img src={menu} alt="" />
+              <h1>Aula 1 - Sobre a maratona de programação</h1>
+            </div>
+            <div className="buttons">
+              <img src={editar} onClick={()=>console.log("edita aula")} />
+              <img src={excluir} onClick={()=>console.log("exclui aula")} />
+            </div>
+          </div><div onClick={()=>console.log("vai pra aula")} className="aula">
+            <div className="cnt">
+              <img src={menu} alt="" />
+              <h1>Aula 1 - Sobre a maratona de programação</h1>
+            </div>
+            <div className="buttons">
+              <img src={editar} onClick={()=>console.log("edita aula")} />
+              <img src={excluir} onClick={()=>console.log("exclui aula")} />
+            </div>
+          </div><div onClick={()=>console.log("vai pra aula")} className="aula">
+            <div className="cnt">
+              <img src={menu} alt="" />
+              <h1>Aula 1 - Sobre a maratona de programação</h1>
+            </div>
+            <div className="buttons">
+              <img src={editar} onClick={()=>console.log("edita aula")} />
+              <img src={excluir} onClick={()=>console.log("exclui aula")} />
+            </div>
+          </div><div onClick={()=>console.log("vai pra aula")} className="aula">
+            <div className="cnt">
+              <img src={menu} alt="" />
+              <h1>Aula 1 - Sobre a maratona de programação</h1>
+            </div>
+            <div className="buttons">
+              <img src={editar} onClick={()=>console.log("edita aula")} />
+              <img src={excluir} onClick={()=>console.log("exclui aula")} />
+            </div>
+          </div><div onClick={()=>console.log("vai pra aula")} className="aula">
+            <div className="cnt">
+              <img src={menu} alt="" />
+              <h1>Aula 1 - Sobre a maratona de programação</h1>
+            </div>
+            <div className="buttons">
+              <img src={editar} onClick={()=>console.log("edita aula")} />
+              <img src={excluir} onClick={()=>console.log("exclui aula")} />
+            </div>
+          </div><div onClick={()=>console.log("vai pra aula")} className="aula">
+            <div className="cnt">
+              <img src={menu} alt="" />
+              <h1>Aula 1 - Sobre a maratona de programação</h1>
+            </div>
+            <div className="buttons">
+              <img src={editar} onClick={()=>console.log("edita aula")} />
+              <img src={excluir} onClick={()=>console.log("exclui aula")} />
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

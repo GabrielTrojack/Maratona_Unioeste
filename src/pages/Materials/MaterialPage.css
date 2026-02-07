@@ -1,7 +1,6 @@
 
 .material-page {
   width: 100vw; 
-  height: 100vh;
   background: #560DAE;
   color: white;
   display: flex;
@@ -15,6 +14,11 @@
     display: flex;  
     flex-direction: column;
 }
+
+.aulas{
+  min-height: max-content;
+}
+
 .aula{
   display: flex;
   align-items: center;  
@@ -25,6 +29,7 @@
   cursor: pointer;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  padding: 5px;
 }
 
 .material-header{

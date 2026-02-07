@@ -3,10 +3,8 @@ import "./LandingPage.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 
-
-
 import trofeu from "../../assets/trofeu.svg";
-import carlos from "../../assets/carlos.svg";
+import carlos from "../../assets/SuperCarlos.svg";
 
 const Landing = () => {
   return (
@@ -21,10 +19,10 @@ const Landing = () => {
             <button>Participe</button>
           </div>
 
-          <img src={trofeu} alt="Logo MU" className="trofeu-img" />
+          {/* <img src={trofeu} alt="Logo MU" className="trofeu-img" /> */}
         </div>
+        {/* <img src={carlos} alt="ESSE É O CARLOS" className="carlos-img" /> */}
         <div className="about">
-            <img src={carlos} alt="ESSE É O CARLOS" className="carlos-img" />
             <div className="we">
               <p>Quem somos?</p>
               <p>
@@ -40,7 +38,6 @@ const Landing = () => {
           <div className="diag"></div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

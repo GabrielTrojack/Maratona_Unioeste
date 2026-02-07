@@ -1,19 +1,23 @@
-import React from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../assets/logo.svg"; 
 
 const Navbar = () => {
-  return (
+  const navigate = useNavigate();
+
+    function landingNavigate() {
+    navigate("/");
+  }
+
+  return (  
     <nav className="navbar">
         <div className="navbar-container">
             <ul className="nav-links">
-                <p>Início</p>
-                <p>Materiais</p>
-                <p>Participe</p>
-                <p>Mural</p>
-                <p>Fazer post</p>
-                <p>Criar aula</p>
-              <img src={logo} alt="Logo MU" onClick={()=>console.log("inicio")} className="logo-img" />
+                <NavLink to="/" end>Início</NavLink>
+                <NavLink to="/materials">Materiais</NavLink>
+                <NavLink to="/">Participe</NavLink>
+                <NavLink to="/mural">Mural</NavLink>
+              <img src={logo} alt="Logo MU" onClick={()=>landingNavigate()} className="logo-img" />
             </ul>
         </div>
     </nav>

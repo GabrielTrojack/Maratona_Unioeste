@@ -1,0 +1,60 @@
+.post-page {
+  width: 100vw; 
+  background: #560DAE;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  margin-top: 6rem;
+  padding-left:5%;
+  padding-right:5%;
+  justify-content: center;
+  align-items: center;
+}
+
+.post{
+  white-space: pre-wrap;
+}
+
+.post-content{
+  width: 80%;
+}
+
+.post-page span {
+  background-color: #ffbe2e;
+  border-radius: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-weight: 650;
+}
+
+h1 {
+  margin: 0;
+  font-weight: bold;
+  font-size: clamp(1rem,2.5vw, 5rem);
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cover {
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  margin-bottom: 5%;
+}
+
+.imagecover {
+  width: 50%;     /* ajuste para o seu caso */
+  height: 10%;    /* ajuste para o seu caso */
+  position: relative;
+}
+
+.info{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+}
