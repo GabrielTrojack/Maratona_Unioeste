@@ -1,5 +1,6 @@
 .landing-page {
-  width: 100vw; 
+  width: 100vw;
+  min-height: 100vh; 
   background: #560DAE;
   color: white;
   display: flex;
@@ -55,7 +56,7 @@
 .about p {
   color: #000000;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   max-width: 600px;
   margin-bottom: 30px;
 }
@@ -66,10 +67,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin: 3rem; 
   padding: 3rem; 
   width: 100%;
   justify-content: flex-end;
+  margin-top: 3rem;
 }
 .trofeu-img {
   width: clamp(40rem, 45vw, 40rem);
