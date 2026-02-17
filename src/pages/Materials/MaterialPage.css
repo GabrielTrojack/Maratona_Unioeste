@@ -1,80 +1,122 @@
-
 .material-page {
-  width: 100vw; 
+  width: 100%;
+  min-height: 100vh;
   background: #560DAE;
   color: white;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  margin-top: 6rem;
-  padding-left:5%;
-  padding-right:5%;
-}
-.material-content{
-    display: flex;  
-    flex-direction: column;
+  padding: 6rem 5% 2rem;
+  box-sizing: border-box;
 }
 
-.aulas{
-  min-height: max-content;
-}
-
-.aula{
+.material-content {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
   display: flex;
-  align-items: center;  
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: #511698;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  padding: 5px;
+  flex-direction: column;
 }
 
-.material-header{
+.material-header {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.material-header h2 {
+  font-size: 2rem;
+  font-weight: 600;
 }
 
 .material-header button {
   background-color: #FFB329;
-  border-style: none;
+  border: none;
   color: #511698;
-  border-radius: 8rem;
-  width: 8%;
+  border-radius: 999px;
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: box-shadow 0.25s ease;
+  transition: 0.2s ease;
 }
 
 .material-header button:hover {
-  transform: scale(1.01);
-  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
 
-.cnt{
+.aulas {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.buttons{
+.aula {
+  width: 100%;
+  background-color: #511698;
+  border-radius: 12px;
+  padding: 10px 14px;
+
   display: flex;
-  flex-direction: row;
   align-items: center;
-  margin-right: 3%;
+  gap: 12px;
+
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
-.buttons img{
-  margin: 3%;
+.aula:hover {
+  background-color: #5f1cad;
+  transform: translateY(-1px);
 }
 
-.buttons img {
-  margin: 5%;
-  transition: transform 0.3s ease;
+.aula .icon-main {
+  flex-shrink: 0;
 }
 
-.buttons img:hover {
-  transform: rotate(3deg) scale(1.05);
+.aula .icon-action {
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.25s ease;
+}
+
+.aula .icon-action:hover {
+  transform: scale(1.12) rotate(3deg);
+}
+
+.aula h1 {
+  flex: 1;
+  min-width: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: white;
+  margin: 0 10px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+
+  .material-page {
+    padding: 5rem 4% 2rem;
+  }
+
+  .material-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .aula h1 {
+    font-size: 1.1rem;
+  }
+
+  .aula .icon-main {
+    height: 2.2rem;
+  }
+
+  .aula .icon-action {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
 }

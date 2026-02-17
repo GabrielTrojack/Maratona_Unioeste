@@ -13,7 +13,8 @@
 }
 .lesson-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  max-width: 100%;
+  grid-template-columns: 1fr;
   gap: 20px;
   width: 85%;
   padding: 20px;
@@ -21,39 +22,94 @@
   background: #5d0ebe;
 }
 
-.video {
-  flex: 0 0 70%;
-  width: 100%;
-  aspect-ratio: 16/9;
-  border: none;
-  display: block;
-}
 
 .more p{
   color: aliceblue;
   font-weight: 700;
 }
-
-.link{
-  padding: 1rem;
-  border-radius: 10px;
-  background-color: #560DAE;
-  width: 100%;
-}
-
 .media {
   height: 25rem;
   display: flex;
   width: 100%;
-  gap: 16px; 
+  gap: 16px;
   align-items: stretch;
 }
 
+
+.video {
+  flex: 2;          
+  width: 100%;
+  border: none;
+  aspect-ratio: 16 / 9;
+}
+
 .more {
-  flex: 0 0 100%;
+  flex: 1;          
   display: flex;
   flex-direction: column;
   gap: 12px;
   overflow-y: auto;
+
+  min-width: 0;    
+}
+
+.link {
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #560DAE;
+  width: 100%;
+  box-sizing: border-box; 
+}
+
+.moreExercicios {
+  display: flex;
+  flex-direction: column;
+  max-height: 50rem;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.exercicios {
+  background-color: #560DAE;
+  flex: 0 0 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   height: 100%;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.exercicio {
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #5d0ebe;
+  width: 100%;
+  position: relative; 
+}
+
+.exercicio::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0;
+  width: 1.5%;
+  height: 100%;
+  background: var(--marker-color, #5d0ebe);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.extra{
+  padding: 10px;
+  background-color: #560DAE;
+  border-radius: 8px;
+}
+
+.moreExtra {
+  display: flex;
+  flex-direction: column;
+  max-height: 20rem;
+  gap: 12px;
+  overflow-y: auto;
 }
