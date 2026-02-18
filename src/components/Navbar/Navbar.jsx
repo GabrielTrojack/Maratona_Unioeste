@@ -15,7 +15,7 @@ const Navbar = () => {
             <ul className="nav-links">
                 <NavLink to="/" end>Início</NavLink>
                 <NavLink to="/materials">Materiais</NavLink>
-                <NavLink to="/">Participe</NavLink>
+                <NavLink to="/class">Participe</NavLink>
                 <NavLink to="/mural">Mural</NavLink>
               <img src={logo} alt="Logo MU" onClick={()=>landingNavigate()} className="logo-img" />
             </ul>

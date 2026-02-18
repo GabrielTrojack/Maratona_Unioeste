@@ -8,6 +8,9 @@ import Material from "./pages/Materials/MaterialPage";
 import MaterialForm from "./pages/MaterialForms/MaterialForm";
 import Lesson from "./pages/Lesson/LessonPage";
 
+import ClassRegister from "./pages/classRegistration/ClassRegistration.jsx";
+import Class from "./pages/classSignup/ClassSignup.jsx";
+
 import Mural from "./pages/Mural/MuralPage";
 import Post from "./pages/Post/PostPage";
 
@@ -26,6 +29,9 @@ function App() {
           <Route path="/materials/new" element={<MaterialForm />} />
           <Route path="/mural" element={<Mural />} />
           <Route path="/lesson" element={<Lesson />} />
+          <Route path="/class" element={<Class />} />
+          <Route path="/classRegister" element={<ClassRegister />} />
+
         </Routes>
         <Footer />
       </BrowserRouter>

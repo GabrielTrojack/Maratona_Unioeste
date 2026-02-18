@@ -29,9 +29,6 @@ const Login = () => {
     }
   }
 
-  console.log(isAuthenticated);
-
-
   if (isAuthenticated) {
     return (
       <div className="login-page">

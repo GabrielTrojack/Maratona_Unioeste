@@ -1,6 +1,5 @@
 import React from "react";
 import "./LessonPage.css";
-import prop from "../../assets/prop.jpg";
 
 
 const Lesson = () => {
