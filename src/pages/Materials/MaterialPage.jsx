@@ -7,6 +7,8 @@ import menu from "../../assets/menu.svg";
 import excluir from "../../assets/Excluir.svg";
 import editar from "../../assets/Editar.svg";
 
+import FullScreenLoader from "../../components/FullScreenLoader/FullScreenLoader";
+
 import { getModules } from "../../services/moduleService"
 import { useAuth } from "../../context/AuthContext";
 
@@ -14,6 +16,7 @@ const Material = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const [module, setModule] = useState([])
+  const [loading, setLoading] = useState(true);
 
 
   async function loadModules() {
@@ -22,6 +25,8 @@ const Material = () => {
       setModule(data.content);
     } catch (error) {
       console.error("Erro ao carregar módulos:", error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -29,6 +34,7 @@ const Material = () => {
     loadModules();
   }, []);
 
+  if (loading) return <FullScreenLoader />;
 
   return (
     <div className="material-page">

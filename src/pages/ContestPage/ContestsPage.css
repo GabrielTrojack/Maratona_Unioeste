@@ -1,0 +1,91 @@
+.contests-page {
+  width: 100vw;
+  min-height: 100vh; 
+  background: #560DAE;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  margin-top: 6rem;
+}
+
+.contests-content {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.contests-content h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.past-title {
+  margin-top: 40px;
+}
+
+.table-wrapper {
+  border: 2px solid white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.contest-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.contest-table th,
+.contest-table td {
+  padding: 12px;
+  text-align: left;
+}
+
+.contest-table th {
+  background: #3a3a55;
+}
+
+.contest-table tr:nth-child(even) {
+  background: #32324a;
+}
+
+button {
+  background: #6c5ce7;
+  border: none;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #5a4bd1;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status.running {
+  background: #00b894;
+}
+
+.status.upcoming {
+  background: #fdcb6e;
+  color: black;
+}
+
+a {
+  color: white;
+  transition: 0.3s; 
+}
+
+a:hover {
+  background-color: white;
+  color: black;
+}

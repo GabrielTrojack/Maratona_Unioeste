@@ -1,18 +1,39 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
 
+import FullScreenLoader from "./components/FullScreenLoader/FullScreenLoader.jsx";
 import NavBar from "./components/Navbar/Navbar.jsx";
 import Footer from "./components/Footer/Footer.jsx";
-import Landing from "./pages/LandingPage/LandingPage";
-import Login from "./pages/AdmLogin/AdmLogin";
-import Material from "./pages/Materials/MaterialPage";
-import MaterialForm from "./pages/MaterialForms/MaterialForm";
-import Lesson from "./pages/Lesson/LessonPage";
 
-import ClassRegister from "./pages/classRegistration/ClassRegistration.jsx";
-import Class from "./pages/classSignup/ClassSignup.jsx";
+const Material = lazy(() => import("./pages/Materials/MaterialPage"));
+const Login = lazy(() => import("./pages/AdmLogin/AdmLogin"));
+const Lesson = lazy(() => import("./pages/Lesson/LessonPage"));
+const Landing = lazy(() => import("./pages/LandingPage/LandingPage"));
+const MaterialForm = lazy(() => import("./pages/MaterialForms/MaterialForm"));
+const Class = lazy(() => import("./pages/classSignup/ClassSignup.jsx"));
+const ClassRegister = lazy(() => import("./pages/classRegistration/ClassRegistration.jsx"));
+const Mural = lazy(() => import("./pages/Mural/MuralPage"));
+const Post = lazy(() => import("./pages/Post/PostPage"));
 
-import Mural from "./pages/Mural/MuralPage";
-import Post from "./pages/Post/PostPage";
+const Contests = lazy(() => import("./pages/ContestPage/ContestPage.jsx"));
+const ContestSignup = lazy(() => import("./pages/ContestSignup/ContestSignup.jsx"));
+const ContestForm = lazy(() => import("./pages/ContestForm/ContestForm.jsx"));
+
+
+
+
+
+// import Material from "./pages/Materials/MaterialPage";
+// import Login from "./pages/AdmLogin/AdmLogin";
+// import Lesson from "./pages/Lesson/LessonPage";
+// import Landing from "./pages/LandingPage/LandingPage";
+// import MaterialForm from "./pages/MaterialForms/MaterialForm";
+
+// import ClassRegister from "./pages/classRegistration/ClassRegistration.jsx";
+// import Class from "./pages/classSignup/ClassSignup.jsx";
+
+// import Mural from "./pages/Mural/MuralPage";
+// import Post from "./pages/Post/PostPage";
 
 import { AuthProvider } from "./context/AuthContext";
 
@@ -21,18 +42,24 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <NavBar />
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/posts" element={<Post />} />
-          <Route path="/materials" element={<Material />} />
-          <Route path="/materials/new" element={<MaterialForm />} />
-          <Route path="/mural" element={<Mural />} />
-          <Route path="/lesson" element={<Lesson />} />
-          <Route path="/class" element={<Class />} />
-          <Route path="/classRegister" element={<ClassRegister />} />
+        <Suspense fallback={<FullScreenLoader />}>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/postagem" element={<Post />} />
+            <Route path="/materials" element={<Material />} />
+            <Route path="/materials/new" element={<MaterialForm />} />
+            <Route path="/mural" element={<Mural />} />
+            <Route path="/lesson" element={<Lesson />} />
+            <Route path="/class" element={<Class />} />
+            <Route path="/classRegister" element={<ClassRegister />} />
 
-        </Routes>
+            <Route path="/contests" element={<Contests />} />
+            <Route path="/Contests/form" element={<ContestSignup />} />
+            <Route path="/Contests/handle" element={<ContestForm />} />
+
+          </Routes>
+        </Suspense>
         <Footer />
       </BrowserRouter>
     </AuthProvider>

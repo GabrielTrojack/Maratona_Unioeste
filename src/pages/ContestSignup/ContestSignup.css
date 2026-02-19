@@ -1,0 +1,84 @@
+.login-page {
+  width: 100vw;
+  min-height: 100vh;
+  background: #560DAE;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-content {
+  background: #ffffff;
+  color: #333;
+  padding: 40px 35px;
+  border-radius: 12px;
+  width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.team-form h1 {
+  text-align: center;
+  margin-bottom: 5px;
+  color: #560DAE;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-section p {
+  font-weight: 600;
+  color: #560DAE;
+  margin-top: 10px;
+}
+
+.team-form input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.team-form input:focus {
+  border-color: #560DAE;
+  box-shadow: 0 0 0 2px rgba(86,13,174,0.15);
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.checkbox-row input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+
+.team-form button {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #560DAE;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.team-form button:hover {
+  background: #6f1fd1;
+  transform: translateY(-1px);
+}
