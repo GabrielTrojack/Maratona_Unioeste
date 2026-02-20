@@ -36,6 +36,7 @@ const Material = () => {
 
   if (loading) return <FullScreenLoader />;
 
+
   return (
     <div className="material-page">
       <div className="material-content">
