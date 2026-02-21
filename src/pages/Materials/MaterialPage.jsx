@@ -1,11 +1,10 @@
 import React from "react";
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
+import { Pencil, Trash2 } from "lucide-react";
 
 import "./MaterialPage.css";
 import menu from "../../assets/menu.svg";
-import excluir from "../../assets/Excluir.svg";
-import editar from "../../assets/Editar.svg";
 
 import FullScreenLoader from "../../components/FullScreenLoader/FullScreenLoader";
 
@@ -18,7 +17,8 @@ const Material = () => {
   const [module, setModule] = useState([])
   const [loading, setLoading] = useState(true);
 
-
+  
+  
   async function loadModules() {
     try {
       const data = await getModules();
@@ -52,32 +52,30 @@ const Material = () => {
           {module.map((mod) => (
             <div
               key={mod.id}
-              onClick={() => console.log("vai pra aula", mod.id)}
+              onClick={() => navigate(`/materials/lesson/${mod.id}`)}
               className="aula"
             >
               <img className="icon-main" src={menu} alt="" />
 
               <h1>{mod.title}</h1>
 
-              <img
-                src={editar}
-                alt="editar"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  console.log("edita aula", mod.id);
-                }}
-                className="icon-action"
-              />
+              <div className="actions-container">
+                <Pencil
+                  className="icon-action edit"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    console.log("edita aula", mod.id);
+                  }}
+                />
 
-              <img
-                src={excluir}
-                alt="excluir"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  console.log("exclui aula", mod.id);
-                }}
-                className="icon-action"
-              />
+                <Trash2
+                  className="icon-action delete"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    console.log("exclui aula", mod.id);
+                  }}
+                />
+              </div>
             </div>
           ))}
 

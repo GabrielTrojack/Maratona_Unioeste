@@ -74,14 +74,66 @@
   flex-shrink: 0;
 }
 
-.aula .icon-action {
-  flex-shrink: 0;
-  margin-left: 8px;
-  transition: transform 0.25s ease;
+.actions-container {
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
-.aula .icon-action:hover {
-  transform: scale(1.12) rotate(3deg);
+.icon-action {
+  width: clamp(32px, 3vw, 36px);
+  height: clamp(32px, 3vw, 36px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px;
+  border-radius: 10px;
+
+  cursor: pointer;
+  color: white;
+
+  transition:
+    background-color 0.18s ease,
+    transform 0.12s ease,
+    box-shadow 0.18s ease,
+    opacity 0.18s ease;
+
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.icon-action.edit {
+  background-color: #3b82f6; 
+}
+
+.icon-action.edit:hover {
+  background-color: #2563eb;
+}
+
+.icon-action.delete {
+  background-color: #ef4444; 
+}
+
+.icon-action.delete:hover {
+  background-color: #dc2626;
+}
+
+.icon-action:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+.icon-action:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+.icon-action:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(59,130,246,0.35),
+    0 4px 10px rgba(0,0,0,0.12);
 }
 
 .aula h1 {
