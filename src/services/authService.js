@@ -27,3 +27,16 @@ export function getToken() {
 export function logout() {
   localStorage.removeItem("token");
 }
+
+export async function fetchAuth(url, options = {}) {
+  const token = getToken();
+
+  return fetch(url, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+      ...options.headers
+    }
+  });
+}

@@ -40,7 +40,8 @@ function App() {
 
             <Route path="/contests" element={<Contests />} />
             <Route path="/Contests/form" element={<ContestSignup />} />
-            <Route path="/Contests/handle" element={<ContestForm />} />
+            <Route path="/contests/new" element={<ContestForm />} />
+            <Route path="/contests/edit/:id" element={<ContestForm />} />
 
           </Routes>
         </Suspense>

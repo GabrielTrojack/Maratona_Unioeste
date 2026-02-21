@@ -127,5 +127,9 @@ button {
 }
 
 .secondary {
-  background: #eee;
+  background: #969696;
+}
+
+.secondary:hover {
+  background: #ff4757;
 }

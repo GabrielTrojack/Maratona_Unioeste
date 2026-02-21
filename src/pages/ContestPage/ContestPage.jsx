@@ -1,81 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Pencil, Trash2 } from "lucide-react";
-import "./ContestsPage.css";
+import { Pencil, Trash2, Eye } from "lucide-react";
+import "./ContestPage.css";
 
+import FullScreenLoader from "../../components/FullScreenLoader/FullScreenLoader";
+
+import { getContests } from "../../services/contestService"
 import { useAuth } from "../../context/AuthContext";
 
 const ContestsPage = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const [contests, setContests] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [currentContests, setCurrentContests] = useState([]);
-  const [pastContests, setPastContests] = useState([]);
+  function formatDateTime(value) {
+    if (!value) return "";
+
+    const date = new Date(value);
+
+    return date.toLocaleString("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+  }
+
+  async function loadContests() {
+    try {
+      const data = await getContests();
+      setContests(data.content);
+      console.log();
+
+    } catch (error) {
+      console.error("Erro ao carregar os contests:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
-    setCurrentContests([
-      {
-        id: 1,
-        name: "Codeforces Round #900",
-        date: "10/04/2026",
-        duration: "02:00",
-        type: "Team",
-        mirror: null,
-      },
-    ]);
-
-    setPastContests([
-      {
-        id: 3,
-        name: "Codeforces Round #899",
-        date: "01/03/2026",
-        duration: "02:00",
-        type: "Individual",
-        mirror: "https://codeforces.com",
-      }, {
-        id: 3,
-        name: "Codeforces Round #901",
-        date: "20/04/2026",
-        duration: "02:30",
-        type: "Individual",
-        mirror: "https://codeforces.com",
-      }, {
-        id: 4,
-        name: "Codeforces Round #901",
-        date: "20/04/2026",
-        duration: "02:30",
-        type: "Individual",
-        mirror: "https://codeforces.com",
-      }, {
-        id: 5,
-        name: "Codeforces Round #901",
-        date: "20/04/2026",
-        duration: "02:30",
-        type: "Individual",
-        mirror: "https://codeforces.com",
-      }, {
-        id: 6,
-        name: "Codeforces Round #901",
-        date: "20/04/2026",
-        duration: "02:30",
-        type: "Individual",
-        mirror: "https://codeforces.com",
-      }, {
-        id: 7,
-        name: "Codeforces Round #901",
-        date: "20/04/2026",
-        duration: "02:30",
-        type: "Individual",
-        mirror: "https://codeforces.com",
-      }, {
-        id: 8,
-        name: "Codeforces Round #901",
-        date: "20/04/2026",
-        duration: "02:30",
-        type: "Individual",
-        mirror: "https://codeforces.com",
-      },
-    ]);
+    loadContests();
   }, []);
 
   function handleEnter(contest) {
@@ -90,6 +57,27 @@ const ContestsPage = () => {
     console.log("Ver ranking:", contest.id);
   }
 
+  if (loading) return <FullScreenLoader />;
+
+  const now = new Date();
+
+  const isFinishedOrMirrored = (c) => {
+    const start = new Date(c.startDateTime);
+
+    const oneDayBefore = new Date(start);
+    oneDayBefore.setDate(oneDayBefore.getDate() - 1);
+
+    return now >= oneDayBefore || !!c.codeforcesMirrorUrl?.trim();
+  };
+
+  const finishedOrMirrored = contests
+    .filter(isFinishedOrMirrored)
+    .sort((a, b) => new Date(b.startDateTime) - new Date(a.startDateTime));
+
+  const upcoming = contests
+    .filter((c) => !isFinishedOrMirrored(c))
+    .sort((a, b) => new Date(a.startDateTime) - new Date(b.startDateTime));
+
   return (
     <div className="contests-page">
       <div className="contests-content">
@@ -97,8 +85,8 @@ const ContestsPage = () => {
           <h1>Contests Ativos</h1>
 
           {isAuthenticated && (
-            <button onClick={() => navigate("/lessons/new")}>
-              + Criar aula
+            <button onClick={() => navigate("/contests/new")}>
+              + Criar contest
             </button>
           )}
         </div>
@@ -111,42 +99,45 @@ const ContestsPage = () => {
                 <th>Duração</th>
                 <th>Tipo</th>
                 <th></th>
+                {isAuthenticated && (<th></th>)}
               </tr>
             </thead>
 
             <tbody>
-              {currentContests.map((contest) => (
+              {upcoming.map((contest) => (
                 <tr key={contest.id}>
                   <td>{contest.name}</td>
-                  <td>{contest.date}</td>
-                  <td>{contest.duration}</td>
-                  <td>{contest.type}</td>
-                  {/* <td>
-                  <span className={`status ${contest.status}`}>
-                    {contest.status === "running" ? "Em andamento" : "Em breve"}
-                  </span>
-                </td> */}
-                  <td className="action-buttons">
-                    {contest.status === "running" ? (
-                      ""
-                    ) : (
-                      <button onClick={() => handleRegister(contest)}>
-                        Registrar time
-                      </button>
-                    )}
-                    {isAuthenticated && (
+                  <td>{formatDateTime(contest.startDateTime)}</td>
+                  <td>
+                    {String(Math.floor(contest.durationMinutes / 60)).padStart(2, "0")}:
+                    {String(contest.durationMinutes % 60).padStart(2, "0")}
+                  </td>
+                  <td>{contest.teamBased ? "Time" : "Individual"}</td>
+                  <td>
+                    <button onClick={() => handleRegister(contest)}>
+                      Registrar time
+                    </button>
+                  </td>
+                  {isAuthenticated && (
+                    <td className="action-buttons">
                       <>
-                        <button className="btn-icon edit" title="Editar" >
+                        <button
+                          className="btn-icon edit"
+                          title="Editar"
+                          onClick={() => navigate(`/contests/edit/${contest.id}`)}
+                        >
                           <Pencil size={18} />
                         </button>
 
                         <button className="btn-icon delete" title="Excluir">
                           <Trash2 size={18} />
                         </button>
+                        <button className="btn-icon times" title="Ver times cadastrados" >
+                          <Eye size={18} />
+                        </button>
                       </>
-                    )}
-
-                  </td>
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
@@ -165,29 +156,42 @@ const ContestsPage = () => {
                 <th>Tipo</th>
                 <th>Mirror</th>
                 {isAuthenticated && (<th></th>)}
-
-
               </tr>
             </thead>
 
             <tbody>
-              {pastContests.map((contest) => (
+              {finishedOrMirrored.map((contest) => (
                 <tr key={contest.id}>
                   <td>{contest.name}</td>
-                  <td>{contest.date}</td>
-                  <td>{contest.duration}</td>
-                  <td>{contest.type}</td>
+                  <td>{formatDateTime(contest.startDateTime)}</td>
                   <td>
-                    <a href={contest.type}>Link do contest</a>
+                    {String(Math.floor(contest.durationMinutes / 60)).padStart(2, "0")}:
+                    {String(contest.durationMinutes % 60).padStart(2, "0")}
+                  </td>
+                  <td>{contest.teamBased ? "Time" : "Individual"}</td>
+                  <td>
+                    {contest.codeforcesMirrorUrl ?
+                      <a href={contest.codeforcesMirrorUrl}>
+                        Link do contest</a> : <p style={{ color: "#888" }}>Em breve...</p>
+                    }
+
                   </td>
                   {isAuthenticated && (
                     <td className="action-buttons">
-                      <button className="btn-icon edit" title="Editar" >
+                      <button
+                        className="btn-icon edit"
+                        title="Editar"
+                        onClick={() => navigate(`/contests/edit/${contest.id}`)}
+                      >
                         <Pencil size={18} />
                       </button>
 
                       <button className="btn-icon delete" title="Excluir">
                         <Trash2 size={18} />
+                      </button>
+
+                      <button className="btn-icon times" title="Ver times cadastrados" >
+                        <Eye size={18} />
                       </button>
                     </td>
                   )}
