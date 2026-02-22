@@ -114,8 +114,12 @@ const ContestsPage = () => {
                   </td>
                   <td>{contest.teamBased ? "Time" : "Individual"}</td>
                   <td>
-                    <button onClick={() => handleRegister(contest)}>
-                      Registrar time
+                    <button
+                      onClick={() => navigate(`/contests/form/${contest.id}`, {
+                        state: { isTeamBased: contest.teamBased }
+                      })}
+                    >
+                      Registrar {contest.teamBased ? "time" : "participante"}
                     </button>
                   </td>
                   {isAuthenticated && (
@@ -132,7 +136,13 @@ const ContestsPage = () => {
                         <button className="btn-icon delete" title="Excluir">
                           <Trash2 size={18} />
                         </button>
-                        <button className="btn-icon times" title="Ver times cadastrados" >
+                        <button
+                          className="btn-icon times"
+                          title="Ver times cadastrados"
+                          onClick={() => navigate(`/contests/teams/${contest.id}`, {
+                            state: { isTeamBased: contest.teamBased }
+                          })}
+                        >
                           <Eye size={18} />
                         </button>
                       </>
@@ -190,7 +200,13 @@ const ContestsPage = () => {
                         <Trash2 size={18} />
                       </button>
 
-                      <button className="btn-icon times" title="Ver times cadastrados" >
+                      <button
+                        className="btn-icon times"
+                        title="Ver times cadastrados"
+                        onClick={() => navigate(`/contests/teams/${contest.id}`, {
+                          state: { isTeamBased: contest.teamBased }
+                        })}
+                      >
                         <Eye size={18} />
                       </button>
                     </td>

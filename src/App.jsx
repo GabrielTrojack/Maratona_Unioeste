@@ -18,6 +18,9 @@ const Post = lazy(() => import("./pages/Post/PostPage"));
 const Contests = lazy(() => import("./pages/ContestPage/ContestPage.jsx"));
 const ContestSignup = lazy(() => import("./pages/ContestSignup/ContestSignup.jsx"));
 const ContestForm = lazy(() => import("./pages/ContestForm/ContestForm.jsx"));
+const ContestRegister = lazy(() => import("./pages/ContestRegister/ContestRegister.jsx"));
+
+
 
 import { AuthProvider } from "./context/AuthContext";
 
@@ -30,19 +33,21 @@ function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/postagem" element={<Post />} />
+            <Route path="/mural/post" element={<Post />} />
+            <Route path="/mural" element={<Mural />} />
+
             <Route path="/materials" element={<Material />} />
             <Route path="/materials/new" element={<MaterialForm />} />
-            <Route path="/mural" element={<Mural />} />
-            <Route path="materials/lesson/:id" element={<Lesson />} />
+            <Route path="/materials/lesson/:id" element={<Lesson />} />
+
             <Route path="/class" element={<Class />} />
             <Route path="/classRegister" element={<ClassRegister />} />
 
             <Route path="/contests" element={<Contests />} />
-            <Route path="/Contests/form" element={<ContestSignup />} />
+            <Route path="/contests/form/:id" element={<ContestSignup />} />
             <Route path="/contests/new" element={<ContestForm />} />
             <Route path="/contests/edit/:id" element={<ContestForm />} />
-
+            <Route path="/contests/teams/:id" element={<ContestRegister />} />
           </Routes>
         </Suspense>
         <Footer />

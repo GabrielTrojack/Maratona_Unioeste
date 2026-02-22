@@ -10,7 +10,7 @@ const Mural = () => {
   
       <div className="card destaque">
         <div className="destaque-body">
-          <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
+          <h1>Como a maratona unioeste se saiu na fase sub-regional</h1>
           <div className="span">
             <span className="tag">Competição</span>
           </div>
@@ -24,7 +24,7 @@ const Mural = () => {
           <img src={prop} alt="imagem" />
         </div>
         <div className="card-body">
-          <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit
+          <h3>Como a maratona unioeste se saiu na fase sub-regional
           </h3>
           <div className="span">
             <span className="tag">Competição</span>
@@ -36,7 +36,7 @@ const Mural = () => {
           <img src={prop} alt="imagem" />
         </div>
         <div className="card-body">
-          <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit
+          <h3>Como a maratona unioeste se saiu na fase sub-regional
           </h3>
           <div className="span">
             <span className="tag">Competição</span>
@@ -50,7 +50,7 @@ const Mural = () => {
           <img src={prop} alt="imagem" />
         </div>
         <div className="card-body">
-          <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit
+          <h3>Como a maratona unioeste se saiu na fase sub-regional
           </h3>
           <div className="span">
             <span className="tag">Competição</span>
@@ -64,7 +64,7 @@ const Mural = () => {
           <img src={prop} alt="imagem" />
         </div>
         <div className="card-body">
-          <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit
+          <h3>Como a maratona unioeste se saiu na fase sub-regional
           </h3>
           <div className="span">
             <span className="tag">Competição</span>
@@ -78,7 +78,7 @@ const Mural = () => {
           <img src={prop} alt="imagem" />
         </div>
         <div className="card-body">
-          <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit
+          <h3>Como a maratona unioeste se saiu na fase sub-regional
           </h3>
           <div className="span">
             <span className="tag">Competição</span>
@@ -92,7 +92,7 @@ const Mural = () => {
           <img src={prop} alt="imagem" />
         </div>
         <div className="card-body">
-          <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit
+          <h3>Como a maratona unioeste se saiu na fase sub-regional
           </h3>
           <div className="span">
             <span className="tag">Competição</span>
@@ -106,7 +106,7 @@ const Mural = () => {
           <img src={prop} alt="imagem" />
         </div>
         <div className="card-body">
-          <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit
+          <h3>Como a maratona unioeste se saiu na fase sub-regional
           </h3>
           <div className="span">
             <span className="tag">Competição</span>

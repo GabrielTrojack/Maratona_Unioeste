@@ -8,7 +8,7 @@ const Post = () => {
   <div className="post-page">
     <div className="post-content">
 
-      <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
+      <h1>Como a maratona unioeste se saiu na fase sub-regional</h1>
 
       <div className="info">
         <div className="span">

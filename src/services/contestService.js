@@ -49,3 +49,33 @@ export async function getContestById(id) {
 
   return await response.json();
 }
+
+export async function getContestTeams(contestId) {
+  const response = await fetchAuth(`${API_BASE}/api/contests/${contestId}/teams`);
+
+  if (!response.ok) {
+    throw new Error("Erro ao buscar times do contest");
+  }
+
+  return await response.json();
+}
+
+export async function createContestTeam(contestId, teamData) {
+  const response = await fetchAuth(
+    `${API_BASE}/api/contests/${contestId}/teams`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(teamData)
+    }
+  );
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || "Erro ao cadastrar time");
+  }
+
+  return await response.json();
+}

@@ -1,0 +1,67 @@
+.teams-page {
+  min-height: 100vh;
+  background: #560DAE;
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+  box-sizing: border-box;
+  margin-top: 6rem;
+}
+
+.teams-content {
+  background: #d9d9d9;
+  padding: 40px;
+  border-radius: 16px;
+  width: 50%;
+  max-width: 90%;
+}
+
+.teams-content h1 {
+  text-align: center;
+  color: #5b0db3;
+  margin-bottom: 30px;
+}
+
+.team-card {
+  background: #ececec;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.team-card h2 {
+  margin-bottom: 10px;
+}
+
+.team-members ul {
+  margin-top: 5px;
+  padding-left: 20px;
+}
+
+.teamName {
+  display: flex;
+  align-items: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px; 
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-left: 8px;
+  vertical-align: middle;
+  letter-spacing: 0.3px;
+}
+
+.badge-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffe69c;
+}
+
+.badge-normal {
+  background-color: #e6f4ea;
+  color: #1e7e34;
+  border: 1px solid #b7e4c7;
+}
