@@ -4,7 +4,7 @@ import { createContest, updateContest, getContestById } from "../../services/con
 import { useParams, useNavigate } from "react-router-dom";
 
 const ContestForm = () => {
-  const { id } = useParams(); // se existir → edição
+  const { id } = useParams();
   const navigate = useNavigate();
   const isEditMode = !!id;
 
@@ -32,7 +32,7 @@ const ContestForm = () => {
         setForm({
           name: data.name,
           durationHours: data.durationMinutes / 60,
-          startDateTime: data.startDateTime.slice(0, 16), // formato datetime-local
+          startDateTime: data.startDateTime.slice(0, 16),
           teamBased: data.teamBased,
           codeforcesMirrorUrl: data.codeforcesMirrorUrl || ""
         });
@@ -69,6 +69,7 @@ const ContestForm = () => {
       }
 
       navigate("/contests");
+      
 
     } catch (err) {
       alert(err.message);

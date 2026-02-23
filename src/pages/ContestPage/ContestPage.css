@@ -1,6 +1,6 @@
 .contests-page {
-  width: 100vw;
-  min-height: 100vh; 
+  width: 100%;
+  min-height: calc(100vh - 6rem);
   background: #560DAE;
   color: white;
   display: flex;
@@ -26,14 +26,44 @@
   margin-top: 40px;
 }
 
+.contests-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.contests-header h1 {
+  margin: 0;
+}
+
+.contests-header button {
+  background-color: #FFB329;
+  border: none;
+  color: #000;
+  border-radius: 999px;
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.contests-header button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
 .table-wrapper {
   border: 2px solid white;
   border-radius: 10px;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .contest-table {
   width: 100%;
+  min-width: 650px;
   border-collapse: collapse;
 }
 
@@ -58,6 +88,7 @@ button {
   padding: 6px 14px;
   border-radius: 6px;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
 button:hover {
@@ -82,7 +113,7 @@ button:hover {
 
 .contests-page a {
   color: white;
-  transition: 0.3s; 
+  transition: 0.3s;
 }
 
 .contests-page a:hover {
@@ -90,69 +121,94 @@ button:hover {
   color: black;
 }
 
-.contests-header button {
-  background-color: #FFB329;
-  border: none;
-  color: #000;
-  border-radius: 999px;
-  padding: 0.6rem 1.4rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-.contests-header button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-}
-
-.contests-header {
-  display: flex;
-  justify-content: space-between; 
-  align-items: center;           
-  width: 100%;                   
-  margin-bottom: 2rem;           
-}
-
-.contests-header h1 {
-  margin: 0;
-}
-
 .action-buttons {
   display: flex;
   gap: 0.5rem;
-  justify-content: flex-end; 
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-icon {
   border-radius: 6px;
   padding: 8px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: all 0.2s ease;
   color: white;
 }
 
 .btn-icon.edit:hover {
   background: rgba(0, 191, 255, 0.2);
-  border-color: #00bfff;
   color: #00bfff;
   transform: translateY(-2px);
 }
 
 .btn-icon.delete:hover {
   background: rgba(255, 71, 87, 0.2);
-  border-color: #ff4757;
   color: #ff4757;
   transform: translateY(-2px);
 }
 
 .btn-icon.times:hover {
   background: rgba(83, 255, 71, 0.2);
-  border-color: #12c012;
   color: #12c012;
   transform: translateY(-2px);
 }
 
-
 .btn-icon:active {
   transform: scale(0.95);
+}
+
+
+@media (max-width: 768px) {
+
+  .contests-content {
+    padding: 0 16px;
+  }
+
+  .contests-content h1 {
+    font-size: 20px;
+  }
+
+  .past-title {
+    margin-top: 30px;
+  }
+
+  .contest-table th,
+  .contest-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .contests-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .contests-header button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+
+  td button {
+    width: 100%;
+    padding: 6px;
+    font-size: 13px;
+  }
+
+  .action-buttons {
+    gap: 0.3rem;
+  }
+
+  .btn-icon {
+    padding: 6px;
+  }
+
+  .btn-icon svg {
+    width: 16px;
+    height: 16px;
+  }
 }

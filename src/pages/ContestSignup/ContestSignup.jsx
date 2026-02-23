@@ -12,7 +12,7 @@ const ContestSignup = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const teamBased = location.state?.isTeamBased;
-  const [success, setSuccess] = useState(true);
+  const [success, setSuccess] = useState(false);
   const [form, setForm] = useState({
     teamName: "",
     coachName: "",

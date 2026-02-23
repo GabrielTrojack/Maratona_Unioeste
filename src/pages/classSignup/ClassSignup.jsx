@@ -10,13 +10,15 @@ const Class = () => {
     <div className="cadastro-page">
       <div className="cadastro-card">
         <div className="cadastro-info">
-        <img src={writenlogo} alt="" />
-          <img src="" alt="" />
+          <img
+            src={writenlogo}
+            alt="Logo"
+            className="Logo"
+          />
           <h2>Cadastre-se</h2>
           <p>
-            Participe da Maratona UNIOESTE, aqui, você se prepara
-            para enfrentar as maiores competições de programação
-            do país, como a OBI e a Maratona SBC (ICPC).
+            Cadastre-se e fique por dentro das próximas aulas da Maratona UNIOESTE na sua região.
+            Aqui você se prepara de verdade para encarar os maiores desafios da programação competitiva, como a OBI e a Maratona SBC (ICPC).
           </p>
         </div>
 

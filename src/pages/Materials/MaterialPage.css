@@ -5,7 +5,7 @@
   color: white;
   display: flex;
   flex-direction: column;
-  padding: 6rem 5% 2rem;
+  padding: calc(6rem + 2rem) 5% 2rem;
   box-sizing: border-box;
 }
 
@@ -21,12 +21,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   margin-bottom: 2rem;
 }
 
 .material-header h2 {
   font-size: 2rem;
   font-weight: 600;
+  margin: 0;
 }
 
 .material-header button {
@@ -38,6 +40,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: 0.2s ease;
+  white-space: nowrap;
 }
 
 .material-header button:hover {
@@ -55,7 +58,7 @@
   width: 100%;
   background-color: #511698;
   border-radius: 12px;
-  padding: 10px 14px;
+  padding: 12px 14px;
 
   display: flex;
   align-items: center;
@@ -76,13 +79,13 @@
 
 .actions-container {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
 }
 
 .icon-action {
-  width: clamp(32px, 3vw, 36px);
-  height: clamp(32px, 3vw, 36px);
+  width: 34px;
+  height: 34px;
 
   display: flex;
   align-items: center;
@@ -97,14 +100,13 @@
   transition:
     background-color 0.18s ease,
     transform 0.12s ease,
-    box-shadow 0.18s ease,
-    opacity 0.18s ease;
+    box-shadow 0.18s ease;
 
   box-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
 
 .icon-action.edit {
-  background-color: #3b82f6; 
+  background-color: #3b82f6;
 }
 
 .icon-action.edit:hover {
@@ -112,7 +114,7 @@
 }
 
 .icon-action.delete {
-  background-color: #ef4444; 
+  background-color: #ef4444;
 }
 
 .icon-action.delete:hover {
@@ -124,22 +126,10 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.12);
 }
 
-.icon-action:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-}
-
-.icon-action:focus-visible {
-  outline: none;
-  box-shadow:
-    0 0 0 3px rgba(59,130,246,0.35),
-    0 4px 10px rgba(0,0,0,0.12);
-}
-
 .aula h1 {
   flex: 1;
   min-width: 0;
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: white;
   margin: 0 10px;
@@ -152,7 +142,7 @@
 @media (max-width: 768px) {
 
   .material-page {
-    padding: 5rem 4% 2rem;
+    padding: calc(6rem + 1.5rem) 4% 2rem;
   }
 
   .material-header h2 {
@@ -160,15 +150,49 @@
   }
 
   .aula h1 {
-    font-size: 1.1rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .material-page {
+    padding: calc(6rem + 1rem) 16px 2rem;
   }
 
-  .aula .icon-main {
-    height: 2.2rem;
+  .material-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
   }
 
-  .aula .icon-action {
-    width: 1.2rem;
-    height: 1.2rem;
+  .material-header button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .aula {
+    padding: 12px;
+  }
+
+  .actions-container {
+    gap: 8px;
+  }
+
+  .icon-action {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 400px) {
+
+  .aula h1 {
+    font-size: 0.95rem;
+  }
+
+  .icon-action {
+    width: 30px;
+    height: 30px;
   }
 }

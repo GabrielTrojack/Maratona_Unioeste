@@ -113,3 +113,14 @@
   gap: 12px;
   overflow-y: auto;
 }
+
+@media (max-width: 900px) {
+  .media {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .more {
+    max-height: 200px; /* opcional: limita altura da lista */
+  }
+}

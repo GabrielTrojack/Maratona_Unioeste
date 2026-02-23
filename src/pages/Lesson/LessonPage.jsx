@@ -15,7 +15,6 @@ const Lesson = () => {
   const [selectedLesson, setSelectedLesson] = useState(null);
 
 
-
   const colors = {
     facil: "#4CAF50",
     medio: "#FFC107",
@@ -69,7 +68,6 @@ const Lesson = () => {
             <iframe
               className="video"
               src={getEmbedUrl(selectedLesson.videoUrl)}
-              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen

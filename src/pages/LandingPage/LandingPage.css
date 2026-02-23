@@ -76,3 +76,75 @@
   width: clamp(40rem, 45vw, 40rem);
   height: clamp(70rem, 3vw, 3rem);
 }
+
+
+
+.logo {
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #f5a623 70%, transparent 71%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: girar 6s linear infinite;
+  }
+
+  @keyframes girar {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* container letras */
+  .letters {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+
+  /* letra M */
+  .m {
+    font-family: Arial, sans-serif;
+    font-weight: 900;
+    font-size: 150px;
+    color: #6a00c9;
+  }
+
+  /* U estilizado */
+  .u {
+    width: 130px;
+    height: 130px;
+    position: relative;
+  }
+
+  /* linhas do U */
+  .u::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-bottom-left-radius: 70px;
+    border-bottom-right-radius: 70px;
+    border: 6px solid #6a00c9;
+    border-top: none;
+
+    /* cria múltiplas linhas */
+    box-shadow:
+      0 0 0 10px transparent,
+      0 0 0 16px #f5a623,
+      0 0 0 22px #6a00c9,
+      0 0 0 32px #f5a623,
+      0 0 0 38px #6a00c9;
+  }
+
+  /* bolinha dentro do U */
+  .u::after {
+    content: "";
+    position: absolute;
+    right: 8px;
+    bottom: 18px;
+    width: 38px;
+    height: 38px;
+    background: #6a00c9;
+    border-radius: 50%;
+  }

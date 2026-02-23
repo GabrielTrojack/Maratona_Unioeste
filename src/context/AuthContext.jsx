@@ -3,15 +3,19 @@ import { createContext, useContext, useState, useEffect } from "react";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-
   const [token, setToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // ao iniciar app, verifica se já existe token salvo
   useEffect(() => {
+
     const storedToken = localStorage.getItem("token");
+
     if (storedToken) {
       setToken(storedToken);
+    } else {
     }
+
+    setIsLoading(false);
   }, []);
 
   function login(token) {
@@ -32,7 +36,8 @@ export function AuthProvider({ children }) {
         token,
         login,
         logout,
-        isAuthenticated
+        isAuthenticated,
+        isLoading
       }}
     >
       {children}

@@ -2,9 +2,19 @@
   width: 100vw;
   min-height: 100vh;
   background: #560DAE;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* evita ficar atrás da navbar fixa */
+  padding-top: 6rem; /* altura da sua navbar */
+  padding-bottom: 30px;
+
+  box-sizing: border-box;
+
+  /* se a tela for baixa permite rolar */
+  overflow-y: auto;
 }
 
 .login-content {

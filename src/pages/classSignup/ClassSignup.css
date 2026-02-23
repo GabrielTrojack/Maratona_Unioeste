@@ -1,7 +1,6 @@
-/* FUNDO ROXO */
 .cadastro-page {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   background: #560DAE;
   display: flex;
   align-items: center;
@@ -18,8 +17,6 @@
   padding-bottom: 7%;
   padding-right: 50px;
   padding-left: 50px;
-
-
 
   display: flex;
   gap: 60px;
@@ -45,6 +42,13 @@
 
 .cadastro-info img {
   margin-bottom: 10%;
+  max-width: 100%;
+  height: auto;
+}
+
+.logo {
+  width: 300px;
+  height: auto;
 }
 
 .cadastro-form {
@@ -86,3 +90,37 @@
 }
 
 
+@media (max-width: 900px) {
+  .cadastro-card {
+    flex-direction: column;
+    gap: 30px;
+    padding: 40px 25px;
+    text-align: center;
+  }
+
+  .cadastro-info p {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .cadastro-info img {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .cadastro-page {
+    padding: 20px;
+  }
+
+  .cadastro-card {
+    padding: 30px 20px;
+    border-radius: 8px;
+  }
+
+  .cadastro-form input,
+  .cadastro-form button {
+    font-size: 16px;
+  }
+}

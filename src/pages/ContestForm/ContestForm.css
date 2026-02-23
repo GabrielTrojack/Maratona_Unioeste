@@ -1,11 +1,14 @@
 .contest-container {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   background: #560DAE;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: Arial, Helvetica, sans-serif;
+  padding: 24px;
+  padding-top: calc(6rem + 24px);
+  box-sizing: border-box;
 }
 
 .contest-card {
@@ -66,6 +69,8 @@ input {
   border: 1px solid #ddd;
   transition: 0.2s;
   font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 input:focus {
@@ -93,11 +98,10 @@ input:focus {
   cursor: pointer;
 }
 
-/* tamanho */
 .checkbox input {
   width: 20px;
   height: 20px;
-  accent-color: #6d28d9; /* cor roxa moderna */
+  accent-color: #6d28d9;
   cursor: pointer;
 }
 
@@ -132,4 +136,65 @@ button {
 
 .secondary:hover {
   background: #ff4757;
+}
+
+@media (max-width: 768px) {
+  .contest-card {
+    padding: 24px;
+  }
+
+  header h1 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .contest-container {
+    align-items: flex-start; 
+    padding: 16px;
+    padding-top: calc(6rem + 16px); 
+  }
+
+  .contest-card {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field.full {
+    grid-column: span 1;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+
+  section h2 {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 400px) {
+
+  .contest-card {
+    padding: 16px;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+
+  input {
+    height: 42px;
+    font-size: 13px;
+  }
 }
