@@ -47,6 +47,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: 0.2s ease;
+  margin-top: 1rem;
 }
 
 .contests-header button:hover {
@@ -91,7 +92,7 @@ button {
   transition: 0.2s ease;
 }
 
-button:hover {
+.contest-table button:hover {
   background: #5a4bd1;
 }
 
