@@ -22,11 +22,6 @@
   background: #5d0ebe;
 }
 
-
-.more p{
-  color: aliceblue;
-  font-weight: 700;
-}
 .media {
   height: 25rem;
   display: flex;
@@ -54,11 +49,25 @@
 }
 
 .link {
+  font-weight: 700;
   padding: 1rem;
   border-radius: 10px;
   background-color: #560DAE;
   width: 100%;
-  box-sizing: border-box; 
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.2s ease;  
+}
+
+.link:hover {
+  background-color: #6d1fd1;
+}
+
+.link.active {
+  background-color: white;
+  color: #560DAE;
+  border: 2px solid #560DAE;
+  font-weight: 600;
 }
 
 .moreExercicios {
@@ -114,6 +123,37 @@
   overflow-y: auto;
 }
 
+.extraMaterial {
+  display: inline-block;
+  margin-top: 0.5%;
+  margin-left: 2%;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.extraMaterial::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 2px;
+  background-color: #560DAE;
+  transition: width 0.25s ease;
+}
+
+.extraMaterial:hover {
+  color: #000;
+}
+
+.extraMaterial:hover::after {
+  width: 100%;
+}
+
 @media (max-width: 900px) {
   .media {
     flex-direction: column;
@@ -121,6 +161,6 @@
   }
 
   .more {
-    max-height: 200px; /* opcional: limita altura da lista */
+    max-height: 200px;
   }
 }

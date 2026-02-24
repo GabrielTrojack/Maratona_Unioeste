@@ -62,7 +62,6 @@ const ContestSignup = () => {
         }
 
         payload = {
-          teamName: "a",
           institution: form.institution,
           competitor1Name: form.competitor1,
           cafeComLeite: form.cafeComLeite,

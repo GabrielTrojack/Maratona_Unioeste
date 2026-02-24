@@ -5,7 +5,7 @@ import "./ContestPage.css";
 
 import FullScreenLoader from "../../components/FullScreenLoader/FullScreenLoader";
 
-import { getContests } from "../../services/contestService"
+import { getContests, deleteContest } from "../../services/contestService";
 import { useAuth } from "../../context/AuthContext";
 
 const ContestsPage = () => {
@@ -13,6 +13,34 @@ const ContestsPage = () => {
   const { isAuthenticated } = useAuth();
   const [contests, setContests] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [contestToDelete, setContestToDelete] = useState(null);
+
+  async function handleDelete(id) {
+  try {
+    const result = await deleteContest(id);
+    alert(result.message);
+
+    setContests(prev => prev.filter(contest => contest.id !== id));
+
+  } catch (error) {
+    console.error(error);
+    alert("Erro ao deletar contest");
+  }
+}
+
+async function confirmDelete() {
+  try {
+    await deleteContest(contestToDelete.id);
+
+    setContests(prev =>
+      prev.filter(c => c.id !== contestToDelete.id)
+    );
+
+    setContestToDelete(null);
+  } catch (error) {
+    alert("Erro ao deletar contest");
+  }
+}
 
   function formatDateTime(value) {
     if (!value) return "";
@@ -44,18 +72,6 @@ const ContestsPage = () => {
   useEffect(() => {
     loadContests();
   }, []);
-
-  function handleEnter(contest) {
-    console.log("Entrar no contest:", contest.id);
-  }
-
-  function handleRegister(contest) {
-    console.log("Inscrever no contest:", contest.id);
-  }
-
-  function handleRanking(contest) {
-    console.log("Ver ranking:", contest.id);
-  }
 
   if (loading) return <FullScreenLoader />;
 
@@ -133,7 +149,9 @@ const ContestsPage = () => {
                           <Pencil size={18} />
                         </button>
 
-                        <button className="btn-icon delete" title="Excluir">
+                        <button className="btn-icon delete" 
+                          onClick={() => setContestToDelete(contest)} 
+                          title="Excluir">
                           <Trash2 size={18} />
                         </button>
                         <button
@@ -196,7 +214,9 @@ const ContestsPage = () => {
                         <Pencil size={18} />
                       </button>
 
-                      <button className="btn-icon delete" title="Excluir">
+                      <button className="btn-icon delete" 
+                        onClick={() => setContestToDelete(contest)} 
+                        title="Excluir">
                         <Trash2 size={18} />
                       </button>
 
@@ -218,6 +238,33 @@ const ContestsPage = () => {
         </div>
 
       </div>
+      {contestToDelete && (
+    <div className="modal-overlay">
+      <div className="modal">
+        <h3>Confirmar exclusão</h3>
+        <p>
+          Você tem certeza que deseja deletar{" "}
+          <strong>{contestToDelete.name}</strong>?
+        </p>
+  
+        <div className="modal-actions">
+          <button
+            className="btn-cancel"
+            onClick={() => setContestToDelete(null)}
+          >
+            Cancelar
+          </button>
+  
+          <button
+            className="btn-delete"
+            onClick={confirmDelete}
+          >
+            Deletar
+          </button>
+        </div>
+      </div>
+    </div>
+  )}
     </div>
   );
 };

@@ -1,161 +1,147 @@
 .material-form {
-  width: 100vw; 
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   background: #560DAE;
   color: white;
   display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  padding-left:5%;
-  padding-right:5%;
   align-items: center;
   justify-content: center;
+  padding: 2rem 5%;
+  box-sizing: border-box;
 }
 
-input{
+
+.material-form input,
+textarea {
   border: 0.5px solid #d0d0d0;
   border-radius: 8px;
-  height: 2rem;
-  margin-right: 0.5rem;
-  margin-left: o.5rem;
-  padding: 2%;
+  padding: 0.6rem;
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
 }
 
-textarea{
+.material-form textarea {
   resize: none;
-  border: 0.5px solid #d0d0d0;
-  border-radius: 8px;
   height: 9em;
-  margin-right: 0.5rem;
-  margin-left: o.5rem;
-  padding: 2%;
 }
 
-input::placeholder,textarea::placeholder{
-  color: #6C6C80;       
-  opacity: 0.5 ;         
+.material-form input::placeholder,
+textarea::placeholder {
+  color: #6C6C80;
+  opacity: 0.6;
 }
 
-input:focus,textarea:focus {
-  border-color: #560DAE; 
-  outline: none;       
+.material-form input:focus,
+textarea:focus {
+  border-color: #560DAE;
+  outline: none;
 }
 
-.form{
+
+.form {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
   background-color: #F0F0F5;
-  width: 60%;
-  height: 70%;
-  border-radius: 10px;
-  
+  width: 100%;
+  max-width: 800px;
+  height: 600px;
+  border-radius: 12px;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
-.formName{
+.formName {
   color: #6C6C80;
-  display: flex;
-  flex-direction: column;
-  width: 95%;
-  padding: 0.5%;
+  width: 100%;
+  margin-top: 1rem;
 }
 
 .formName button {
   background-color: #FFB329;
-  border-style: none;
+  border: none;
   color: #511698;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   width: 100%;
-  height: 2rem;
+  height: 2.3rem;
   cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.25s ease;
+  transition: 0.2s ease;
 }
+
 .formName button:hover {
-  transform: scale(1.01);
-  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.05);
+  transform: scale(1.02);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
 }
 
-.aulas{
+.material-form .aulas {
+  max-height: 250px;
+  overflow-y: auto;
+} 
+
+.linkAula {
+  margin: 0.5rem 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  gap: 0.5rem;
   width: 100%;
-  height: fit-content;
-  max-height: 50%;
-  overflow: auto;    
-  padding-right: 8px;
-}
-
-.linkAula{
-  margin-top: 1%;
-  margin-bottom: 1%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 95%;
-  height: fit-content;
-  padding: 0.5%;
-  background-color: #ffff;
+  padding: 0.7rem;
+  background-color: white;
   border-radius: 8px;
 }
 
-.linkAula input{
-  width: 43%;
-} 
-
-.modulo{
-  width: 94%;
+.linkAula input {
+  flex: 1;
 }
 
-/*End form buttons*/
-.downButton{
+.modulo {
+  width: 100%;
+}
+
+.downButton {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  width: 95%;
+  width: 100%;
   margin-top: auto;
-  margin-bottom: 3%;
+  margin-top: 2rem;
 }
 
 .downButton button {
-  color: #ffff;
+  color: white;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 2%;
   align-items: center;
-  border-style: none;
-  border-radius: 0.5rem;
-  height: 2.5rem;
-  width: 15%;
+  gap: 8px;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.25s ease;
-}
-.downButton button:hover {
-  transform: scale(1.01);
-  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.05);
+  transition: 0.2s ease;
+  min-width: 120px;
+  justify-content: center;
 }
 
-.btn{
+.downButton button:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
   background-color: #6C6C80;
 }
 
-.btnConcluir{
+.btnConcluir {
   background-color: #4CAF50;
 }
 
+.btnConcluir:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-/*Step progress*/
 .stepper {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  width: 50%;
+  width: 60%;
   position: relative;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-bottom: 2rem;
 }
 
 .stepper::before {
@@ -168,13 +154,14 @@ input:focus,textarea:focus {
   background: #a578d6;
   z-index: 0;
 }
+
 .step {
   width: 18px;
   height: 18px;
   border-radius: 50%;
   background: white;
-  border: 1px solid #511698; 
-  z-index: 1; 
+  border: 1px solid #511698;
+  z-index: 1;
 }
 
 .step.active {
@@ -182,29 +169,47 @@ input:focus,textarea:focus {
   border-color: #511698;
 }
 
-.dificulty{
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  content: "";
-  height: 2.5rem;
-  width: 2.5rem;
-  border: 0.5px solid #d0d0d0;
-  border-radius: 8px;
-  margin-right: 1%;
-  margin-left: 1%;
-  z-index: 1;
-}
-.dificultWrapper-{
+
+.dificultWrapper {
   position: relative;
   display: flex;
 }
 
-.dificulty img{
-  content: "";
-  height: 2rem;
-  width: 2rem;
-  opacity: 0.7;
-  z-index: 2;
+.dificulty {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.5rem;
+  width: 2.5rem;
+  border: 0.5px solid #d0d0d0;
+  border-radius: 8px;
+  transition: 0.2s ease;
+}
+
+.dificulty:hover {
+  transform: scale(1.05);
+}
+
+.dropdown {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.dropdown p {
+  margin: 5px 0;
+  cursor: pointer;
+  color: #333;
+  transition: 0.2s;
+}
+
+.dropdown p:hover {
+  color: #511698;
 }

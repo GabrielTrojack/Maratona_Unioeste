@@ -1,170 +1,296 @@
-import {useState} from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Trash2,
+  ArrowRight,
+  ArrowLeft,
+  Pencil,
+  Check,
+} from "lucide-react";
+import { createFullModule } from "../../services/moduleService";
 import "./MaterialForm.css";
-import menu from "../../assets/menu.svg";
-
-import excluir from "../../assets/Excluir.svg";
-import setasdir from "../../assets/setasdir.svg";
-import setasesq from "../../assets/setasesq.svg";
-import diffEdit from "../../assets/edit.svg";
-import conclude from "../../assets/conclude.svg";
 
 const Material = () => {
-  const [step, setStep] = useState(1);
-  const [difficulty, setDifficulty] = useState(null);
-  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const colors = {
-    facil: "#4CAF50",
-    medio: "#FFC107",
-    dificil: "#F44336",
+  const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [moduleData, setModuleData] = useState({
+    title: "",
+    notes: "",
+    published: true,
+    lessons: [],
+    exercises: [],
+    extraMaterials: [],
+  });
+
+  const difficultyColors = {
+    EASY: "#4CAF50",
+    MEDIUM: "#FFC107",
+    HARD: "#F44336",
   };
+
+  function updateField(field, value) {
+    setModuleData((prev) => ({ ...prev, [field]: value }));
+  }
+
+  function addItem(type) {
+    const templates = {
+      lessons: {
+        title: "",
+        slug: "slug",
+        summary: "summary",
+        videoUrl: "",
+        orderIndex: moduleData.lessons.length + 1,
+      },
+      exercises: {
+        title: "",
+        ojName: "ojName",
+        ojUrl: "",
+        difficulty: "EASY",
+        tags: [],
+      },
+      extraMaterials: {
+        type: "LINK",
+        url: "",
+      },
+    };
+
+    setModuleData((prev) => ({
+      ...prev,
+      [type]: [...prev[type], templates[type]],
+    }));
+  }
+
+  function updateItem(type, index, field, value) {
+    setModuleData((prev) => {
+      const updated = [...prev[type]];
+      updated[index][field] = value;
+      return { ...prev, [type]: updated };
+    });
+  }
+
+  function removeItem(type, index) {
+    setModuleData((prev) => ({
+      ...prev,
+      [type]: prev[type].filter((_, i) => i !== index),
+    }));
+  }
+  async function handleCreateModule() {
+    if (isSubmitting) return;
+
+    try {
+      setIsSubmitting(true);
+      await createFullModule(moduleData);
+      navigate("/materials");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   return (
     <div className="material-form">
-      <form className="form" action="">
+      <div className="form">
 
         {step === 1 && (
           <>
-            <div class="stepper">
-              <div class="step active"></div>
-              <div class="step"></div>
-              <div class="step"></div>
-            </div>
-
-            <input className="modulo" placeholder="Titulo do modulo" type="text" />
+            <input
+              className="modulo"
+              placeholder="Título do módulo"
+              value={moduleData.title}
+              onChange={(e) => updateField("title", e.target.value)}
+            />
 
             <div className="formName">
               <p>Aulas</p>
-              <button>Criar aula</button>
+              <button type="button" onClick={() => addItem("lessons")}>
+                Criar aula
+              </button>
             </div>
 
-            <div className="aulas">
-              <div className="linkAula">
-                <input className="modulo" placeholder="Titulo da aula" type="text" />
-                <input className="modulo" placeholder="Link da aula" type="text" />
-                <img src={excluir} onClick={() => console.log("exclui aula")} />
+            {moduleData.lessons.map((lesson, index) => (
+              <div key={index} className="linkAula">
+                <input
+                  value={lesson.title}
+                  placeholder="Título da aula"
+                  onChange={(e) =>
+                    updateItem("lessons", index, "title", e.target.value)
+                  }
+                />
+
+                <input
+                  value={lesson.videoUrl}
+                  placeholder="Link da aula"
+                  onChange={(e) =>
+                    updateItem("lessons", index, "videoUrl", e.target.value)
+                  }
+                />
+
+                <Trash2
+                  size={18}
+                  className="icon-delete"
+                  color="#F44336"
+                  onClick={() => removeItem("lessons", index)}
+                />
               </div>
-              
-            </div>
+            ))}
 
             <div className="downButton">
-              <div className="a"></div>
-
-              <button className="btn">
-                <p>Proximo</p>
-                <img src={setasdir} alt="" />
+              <div />
+              <button
+                type="button"
+                className="btn"
+                onClick={() => setStep(2)}
+              >
+                Próximo <ArrowRight size={18} />
               </button>
             </div>
           </>
         )}
-
         {step === 2 && (
           <>
-            <div class="stepper">
-              <div class="step"></div>
-              <div class="step active"></div>
-              <div class="step"></div>
-            </div>
-
             <div className="formName">
-              <p>Exercicios</p>
-              <button>Adicionar Exercicio</button>
+              <p>Exercícios</p>
+              <button type="button" onClick={() => addItem("exercises")}>
+                Adicionar exercício
+              </button>
             </div>
 
-            <div className="aulas">
-              <div className="linkAula">
-                <div className="dificultWrapper">
-                  <div
-                    className="dificulty"
-                    onClick={() => setOpen(!open)}
-                    style={{backgroundColor: difficulty ? colors[difficulty] : "transparent",}}
-                  >
-                    {!difficulty && <img src={diffEdit} alt="" />}
-                  </div>
-                  {open && (
-                    <div
-                      style={{
-                        color: "#000",
-                        top: "60px",
-                        left: "0",
-                        background: "#fff",
-                        border: "1px solid #ddd",
-                        borderRadius: "8px",
-                        padding: "8px",
-                        boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                        zIndex: 10,
-                      }}
-                    >
-                      <p onClick={() => { setDifficulty("facil"); setOpen(false); }} style={{ cursor: "pointer", margin: "6px 0" }}>
-                        Fácil
-                      </p>
-                      <p onClick={() => { setDifficulty("medio"); setOpen(false); }} style={{ cursor: "pointer", margin: "6px 0" }}>
-                        Médio
-                      </p>
-                      <p onClick={() => { setDifficulty("dificil"); setOpen(false); }} style={{ cursor: "pointer", margin: "6px 0" }}>
-                        Difícil
-                      </p>
-                    </div>
-                  )}
-                </div>
-                <input className="modulo" placeholder="Titulo do exercicio" type="text" />
-                <input className="modulo" placeholder="Link do execrcicio" type="text" />
-                <img src={excluir} onClick={() => console.log("exclui exercicio")} />
+            {moduleData.exercises.map((exercise, index) => (
+              <div key={index} className="linkAula">
+                <input
+                  value={exercise.title}
+                  placeholder="Título do exercício"
+                  onChange={(e) =>
+                    updateItem("exercises", index, "title", e.target.value)
+                  }
+                />
+
+                <input
+                  value={exercise.ojUrl}
+                  placeholder="Link do exercício"
+                  onChange={(e) =>
+                    updateItem("exercises", index, "ojUrl", e.target.value)
+                  }
+                />
+
+                <select
+                  value={exercise.difficulty}
+                  onChange={(e) =>
+                    updateItem(
+                      "exercises",
+                      index,
+                      "difficulty",
+                      e.target.value
+                    )
+                  }
+                  style={{
+                    backgroundColor:
+                      difficultyColors[exercise.difficulty],
+                  }}
+                >
+                  <option value="EASY">Fácil</option>
+                  <option value="MEDIUM">Médio</option>
+                  <option value="HARD">Difícil</option>
+                </select>
+
+                <Trash2
+                  size={18}
+                  className="icon-delete"
+                  onClick={() => removeItem("exercises", index)}
+                />
               </div>
-            </div>
+            ))}
 
             <div className="downButton">
-              <button className="btn">
-                <img  src={setasesq} alt="" />
-                <p>Anterior</p>
+              <button
+                type="button"
+                className="btn"
+                onClick={() => setStep(1)}
+              >
+                <ArrowLeft size={18} /> Anterior
               </button>
 
-              <button className="btn">
-                <p>Proximo</p>
-                <img src={setasdir} alt="" />
+              <button
+                type="button"
+                className="btn"
+                onClick={() => setStep(3)}
+              >
+                Próximo <ArrowRight size={18} />
               </button>
             </div>
           </>
         )}
-
 
         {step === 3 && (
           <>
-            <div class="stepper">
-              <div class="step"></div>
-              <div class="step"></div>
-              <div class="step active"></div>
-            </div>
+            <textarea
+              className="modulo"
+              placeholder="Notas"
+              value={moduleData.notes}
+              onChange={(e) => updateField("notes", e.target.value)}
+            />
 
             <div className="formName">
-              <p>Notas e Materiais extras</p>
-              <button>Adicionar material extra</button>
+              <p>Materiais Extras</p>
+              <button
+                type="button"
+                onClick={() => addItem("extraMaterials")}
+              >
+                Adicionar material
+              </button>
             </div>
-            <textarea className="modulo" placeholder="Notas" name="" id=""></textarea>
 
-            <div className="aulas">
-              <div className="linkAula">
-                <input className="modulo" placeholder="Titulo do material" type="text" />
-                <input className="modulo" placeholder="Link do material" type="text" />
-                <img src={excluir} onClick={() => console.log("exclui aula")} />
+            {moduleData.extraMaterials.map((material, index) => (
+              <div key={index} className="linkAula">
+                <input
+                  value={material.url}
+                  placeholder="Link do material"
+                  onChange={(e) =>
+                    updateItem(
+                      "extraMaterials",
+                      index,
+                      "url",
+                      e.target.value
+                    )
+                  }
+                />
+
+                <Trash2
+                  size={18}
+                  className="icon-delete"
+                  onClick={() =>
+                    removeItem("extraMaterials", index)
+                  }
+                />
               </div>
-            </div>
+            ))}
 
             <div className="downButton">
-
-              <button className="btn">
-                <img  src={setasesq} alt="" />
-                <p>Anterior</p>
+              <button
+                type="button"
+                className="btn"
+                onClick={() => setStep(2)}
+              >
+                <ArrowLeft size={18} /> Anterior
               </button>
 
-              <button className="btnConcluir">
-                <p>Concluir</p>
-                <img src={conclude} alt="" />
+              <button
+                type="button"
+                className="btnConcluir"
+                onClick={handleCreateModule}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Salvando..." : "Concluir"}
+                <Check size={18} />
               </button>
             </div>
           </>
         )}
-      </form>
+      </div>
     </div>
   );
 };

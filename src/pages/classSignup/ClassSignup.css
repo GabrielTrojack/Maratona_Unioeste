@@ -13,20 +13,25 @@
   max-width: 1100px;
   background: #fff;
   border-radius: 10px;
-  padding-top: 7%;
-  padding-bottom: 7%;
-  padding-right: 50px;
-  padding-left: 50px;
+  padding: 7% 50px 90px 50px; 
   margin-top: 6rem;
 
   display: flex;
   gap: 60px;
   align-items: center;
   justify-content: space-between;
+
+  position: relative; 
 }
 
 .cadastro-info {
   flex: 1;
+}
+
+.logo {
+  width: 300px;
+  height: auto;
+  margin-bottom: 10%;
 }
 
 .cadastro-info h2 {
@@ -39,17 +44,6 @@
   color: #6b7280;
   line-height: 1.5;
   max-width: 420px;
-}
-
-.cadastro-info img {
-  margin-bottom: 10%;
-  max-width: 100%;
-  height: auto;
-}
-
-.logo {
-  width: 300px;
-  height: auto;
 }
 
 .cadastro-form {
@@ -90,12 +84,30 @@
   transform: scale(1.05);
 }
 
+.view-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  background: #6d28d9;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.view-button:hover {
+  transform: scale(1.05);
+}
+
 
 @media (max-width: 900px) {
   .cadastro-card {
     flex-direction: column;
     gap: 30px;
-    padding: 40px 25px;
+    padding: 40px 25px 90px 25px;
     text-align: center;
   }
 
@@ -105,7 +117,7 @@
 }
 
 @media (max-width: 700px) {
-  .cadastro-info img {
+  .logo {
     display: none;
   }
 }
@@ -116,7 +128,7 @@
   }
 
   .cadastro-card {
-    padding: 30px 20px;
+    padding: 30px 20px 90px 20px;
     border-radius: 8px;
   }
 

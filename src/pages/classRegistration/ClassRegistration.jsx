@@ -1,47 +1,52 @@
-import React from "react";
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "./ClassRegistration.css";
-
-import writenlogo from "../../assets/writenlogo.svg";
+import { getRegistrations } from "../../services/classService";
 
 const ClassRegister = () => {
-  
-  const cadastros = [
-    {
-      id: 1,
-      nome: "Gabriel",
-      email: "gabriel@email.com",
-      whatsapp: "(45) 99999-9999",
-      instituicao: "UNIOESTE"
-    },
-    {
-      id: 2,
-      nome: "Maria",
-      email: "maria@email.com",
-      whatsapp: "(11) 98888-7777",
-      instituicao: "UFPR"
+  const [cadastros, setCadastros] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function loadRegistrations() {
+      try {
+        const data = await getRegistrations();
+        setCadastros(data.content);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
     }
-  ];
+
+    loadRegistrations();
+  }, []);
+
+  if (loading) return <p>Carregando cadastros...</p>;
+  if (error) return <p>Erro: {error}</p>;
 
   return (
-    <div className="lista-page">
-      <div className="lista-card">
-        <h1>Cadastros</h1>
+    <div className="registrations-page">
+  <div className="registrations-content">
+    <h1>Cadastros</h1>
 
-        <div className="lista">
-          {cadastros.map(cadastro => (
-            <div key={cadastro.id} className="cadastro-item">
-              <h3>{cadastro.nome}</h3>
-              <p><strong>Email:</strong> {cadastro.email}</p>
-              <p><strong>WhatsApp:</strong> {cadastro.whatsapp}</p>
-              <p><strong>Instituição:</strong> {cadastro.instituicao}</p>
-            </div>
-          ))}
+    {cadastros.map((cadastro) => (
+      <div key={cadastro.id} className="registration-card">
+        
+        <div className="registration-header">
+          <h2>{cadastro.name}</h2>
+        </div>
+
+        <div className="registration-info">
+          <p><strong>Email:</strong> {cadastro.email}</p>
+          <p><strong>WhatsApp:</strong> {cadastro.whatsapp}</p>
+          <p><strong>Instituição:</strong> {cadastro.institution}</p>
         </div>
 
       </div>
-    </div>
+    ))}
+  </div>
+</div>
   );
 };
 

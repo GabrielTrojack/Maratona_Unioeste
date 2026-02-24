@@ -8,7 +8,7 @@ import menu from "../../assets/menu.svg";
 
 import FullScreenLoader from "../../components/FullScreenLoader/FullScreenLoader";
 
-import { getModules } from "../../services/moduleService"
+import { getModules, deleteModule } from "../../services/moduleService";
 import { useAuth } from "../../context/AuthContext";
 
 const Material = () => {
@@ -16,8 +16,7 @@ const Material = () => {
   const { isAuthenticated } = useAuth();
   const [module, setModule] = useState([])
   const [loading, setLoading] = useState(true);
-
-  
+  const [moduleToDelete, setModuleToDelete] = useState(null);
   
   async function loadModules() {
     try {
@@ -29,6 +28,20 @@ const Material = () => {
       setLoading(false);
     }
   }
+
+  async function confirmDelete() {
+  try {
+    await deleteModule(moduleToDelete.id);
+
+    setModule(prev =>
+      prev.filter(m => m.id !== moduleToDelete.id)
+    );
+
+    setModuleToDelete(null);
+  } catch (error) {
+    console.error("Erro ao deletar módulo:", error);
+  }
+}
 
   useEffect(() => {
     loadModules();
@@ -43,7 +56,7 @@ const Material = () => {
         <div className="material-header">
           <h2>Materiais de estudo</h2>
           {isAuthenticated && (
-            <button onClick={() => navigate("/lessons/new")}>
+            <button onClick={() => navigate("/materials/new")}>
               + Criar aula
             </button>
           )}
@@ -52,7 +65,7 @@ const Material = () => {
           {module.map((mod) => (
             <div
               key={mod.id}
-              onClick={() => navigate(`/materials/lesson/${mod.id}`)}
+              onClick={() => navigate(`/materials/${mod.id}`)}
               className="aula"
             >
               <img className="icon-main" src={menu} alt="" />
@@ -72,7 +85,7 @@ const Material = () => {
                   className="icon-action delete"
                   onClick={(e) => {
                     e.stopPropagation();
-                    console.log("exclui aula", mod.id);
+                    setModuleToDelete(mod);;
                   }}
                 />
               </div>
@@ -81,8 +94,35 @@ const Material = () => {
 
         </div>
       </div>
+      {moduleToDelete && (
+    <div className="modal-overlay">
+      <div className="modal">
+        <h3>Confirmar exclusão</h3>
+        <p>
+          Você tem certeza que deseja deletar{" "}
+          <strong>{moduleToDelete.title}</strong>?
+        </p>
+  
+        <div className="modal-actions">
+          <button
+            className="btn-cancel"
+            onClick={() => setModuleToDelete(null)}
+          >
+            Cancelar
+          </button>
+  
+          <button
+            className="btn-delete"
+            onClick={confirmDelete}
+          >
+            Deletar
+          </button>
+        </div>
+      </div>
     </div>
-  );
+  )}  
+    </div>
+);
 };
 
 export default Material;

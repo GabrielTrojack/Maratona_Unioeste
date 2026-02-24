@@ -79,3 +79,16 @@ export async function createContestTeam(contestId, teamData) {
 
   return await response.json();
 }
+
+export async function deleteContest(id) {
+  const response = await fetchAuth(`${API_BASE}/api/contests/${id}`, {
+    method: "DELETE"
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || "Erro ao deletar contest");
+  }
+
+  return await response.json();
+}
