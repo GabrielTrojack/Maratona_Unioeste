@@ -50,6 +50,7 @@ function App() {
 
               <Route element={<AdminRoute />}>
                 <Route path="/materials/new" element={<MaterialForm />} />
+                <Route path="/materials/edit/:id" element={<MaterialForm />} />
 
                 <Route path="/class/register" element={<ClassRegister />} />
 

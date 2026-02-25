@@ -1,19 +1,69 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Trash2,
   ArrowRight,
   ArrowLeft,
   Check,
 } from "lucide-react";
-import { createFullModule } from "../../services/moduleService";
+import {
+  createFullModule,
+  getModuleById,
+  getExtras,
+  getLessons,
+  getExercises,
+  updateFullModule
+} from "../../services/moduleService";
 import "./MaterialForm.css";
 
-const Material = () => {
-  const navigate = useNavigate();
+import FullScreenLoader from "../../components/FullScreenLoader/FullScreenLoader";
 
+
+const Material = () => {
+  const { id } = useParams();
+  const isEditMode = !!id;
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!isEditMode) return;
+
+    async function loadData() {
+      setLoading(true);
+
+      try {
+        const [
+          exercisesData,
+          extrasData,
+          lessonsData,
+          moduleResponse
+        ] = await Promise.all([
+          getExercises(id),
+          getExtras(id),
+          getLessons(id),
+          getModuleById(id)
+        ]);
+
+        setModuleData({
+          title: moduleResponse.title || "",
+          notes: moduleResponse.notes || "",
+          published: moduleResponse.published ?? true,
+          lessons: lessonsData || [],
+          exercises: exercisesData || [],
+          extraMaterials: extrasData || [],
+        });
+
+      } catch (error) {
+        console.error("Erro ao carregar dados:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadData();
+  }, [id, isEditMode]);
 
   const [moduleData, setModuleData] = useState({
     title: "",
@@ -38,20 +88,17 @@ const Material = () => {
     const templates = {
       lessons: {
         title: "",
-        slug: "slugag",
-        summary: "summary",
         videoUrl: "",
         orderIndex: moduleData.lessons.length + 1,
       },
       exercises: {
         title: "",
-        ojName: "ojName",
         ojUrl: "",
         difficulty: "EASY",
         tags: [],
       },
       extraMaterials: {
-        type: "LINK",
+        title: "",
         url: "",
       },
     };
@@ -76,12 +123,19 @@ const Material = () => {
       [type]: prev[type].filter((_, i) => i !== index),
     }));
   }
-  async function handleCreateModule() {
+
+  async function handleSubmit() {
     if (isSubmitting) return;
 
     try {
       setIsSubmitting(true);
-      await createFullModule(moduleData);
+
+      if (isEditMode) {
+        await updateFullModule(id, moduleData);
+      } else {
+        await createFullModule(moduleData);
+      }
+
       navigate("/materials");
     } catch (error) {
       console.error(error);
@@ -89,10 +143,11 @@ const Material = () => {
       setIsSubmitting(false);
     }
   }
-
+  if (loading) return <FullScreenLoader />;
+  
   return (
     <div className="material-form">
-      <h1>Criar novo modulo</h1>
+      <h1>{isEditMode ? "Editar módulo" : "Criar novo módulo"}</h1>
       <div className="form">
 
         {step === 1 && (
@@ -131,8 +186,7 @@ const Material = () => {
 
                 <Trash2
                   size={18}
-                  className="icon-delete"
-                  color="#F44336"
+                  className="icon-action delete"
                   onClick={() => removeItem("lessons", index)}
                 />
               </div>
@@ -178,19 +232,12 @@ const Material = () => {
                 />
 
                 <select
-                  value={exercise.difficulty}
+                  className="difficulty-select"
+                  data-difficulty={exercise.difficulty}
+                  value={exercise.difficulty || "EASY"}
                   onChange={(e) =>
-                    updateItem(
-                      "exercises",
-                      index,
-                      "difficulty",
-                      e.target.value
-                    )
+                    updateItem("exercises", index, "difficulty", e.target.value)
                   }
-                  style={{
-                    backgroundColor:
-                      difficultyColors[exercise.difficulty],
-                  }}
                 >
                   <option value="EASY">Fácil</option>
                   <option value="MEDIUM">Médio</option>
@@ -199,7 +246,7 @@ const Material = () => {
 
                 <Trash2
                   size={18}
-                  className="icon-delete"
+                  className="icon-action delete"
                   onClick={() => removeItem("exercises", index)}
                 />
               </div>
@@ -247,6 +294,19 @@ const Material = () => {
             {moduleData.extraMaterials.map((material, index) => (
               <div key={index} className="linkAula">
                 <input
+                  value={material.title}
+                  placeholder="Titulo do material"
+                  onChange={(e) =>
+                    updateItem(
+                      "extraMaterials",
+                      index,
+                      "title",
+                      e.target.value
+                    )
+                  }
+                />
+
+                <input
                   value={material.url}
                   placeholder="Link do material"
                   onChange={(e) =>
@@ -261,7 +321,7 @@ const Material = () => {
 
                 <Trash2
                   size={18}
-                  className="icon-delete"
+                  className="icon-action delete"
                   onClick={() =>
                     removeItem("extraMaterials", index)
                   }
@@ -281,7 +341,7 @@ const Material = () => {
               <button
                 type="button"
                 className="btnConcluir"
-                onClick={handleCreateModule}
+                onClick={handleSubmit}
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Salvando..." : "Concluir"}

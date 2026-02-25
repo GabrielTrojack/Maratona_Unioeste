@@ -17,7 +17,7 @@ const Material = () => {
   const [module, setModule] = useState([])
   const [loading, setLoading] = useState(true);
   const [moduleToDelete, setModuleToDelete] = useState(null);
-  
+
   async function loadModules() {
     try {
       const data = await getModules();
@@ -30,18 +30,18 @@ const Material = () => {
   }
 
   async function confirmDelete() {
-  try {
-    await deleteModule(moduleToDelete.id);
+    try {
+      await deleteModule(moduleToDelete.id);
 
-    setModule(prev =>
-      prev.filter(m => m.id !== moduleToDelete.id)
-    );
+      setModule(prev =>
+        prev.filter(m => m.id !== moduleToDelete.id)
+      );
 
-    setModuleToDelete(null);
-  } catch (error) {
-    console.error("Erro ao deletar módulo:", error);
+      setModuleToDelete(null);
+    } catch (error) {
+      console.error("Erro ao deletar módulo:", error);
+    }
   }
-}
 
   useEffect(() => {
     loadModules();
@@ -66,65 +66,71 @@ const Material = () => {
             <div
               key={mod.id}
               onClick={() => navigate(`/materials/${mod.id}`, {
-                          state: { lessonTitle: mod.title }
-                        })}
+                state: {
+                  lessonTitle: mod.title,
+                  lessonNotes: mod.notes
+                }
+              })}
               className="aula"
             >
               <img className="icon-main" src={menu} alt="" />
 
               <h1>{mod.title}</h1>
 
-              <div className="actions-container">
-                <Pencil
-                  className="icon-action edit"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    console.log("edita aula", mod.id);
-                  }}
-                />
+              {isAuthenticated && (
+                <div className="actions-container">
+                  <Pencil
+                    className="icon-action edit"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/materials/edit/${mod.id}`)
+                    }}
+                  />
 
-                <Trash2
-                  className="icon-action delete"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setModuleToDelete(mod);;
-                  }}
-                />
-              </div>
+                  <Trash2
+                    className="icon-action delete"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setModuleToDelete(mod);;
+                    }}
+                  />
+                </div>
+              )}
+
             </div>
           ))}
 
         </div>
       </div>
       {moduleToDelete && (
-    <div className="modal-overlay">
-      <div className="modal">
-        <h3>Confirmar exclusão</h3>
-        <p>
-          Você tem certeza que deseja deletar{" "}
-          <strong>{moduleToDelete.title}</strong>?
-        </p>
-  
-        <div className="modal-actions">
-          <button
-            className="btn-cancel"
-            onClick={() => setModuleToDelete(null)}
-          >
-            Cancelar
-          </button>
-  
-          <button
-            className="btn-delete"
-            onClick={confirmDelete}
-          >
-            Deletar
-          </button>
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Confirmar exclusão</h3>
+            <p>
+              Você tem certeza que deseja deletar{" "}
+              <strong>{moduleToDelete.title}</strong>?
+            </p>
+
+            <div className="modal-actions">
+              <button
+                className="btn-cancel"
+                onClick={() => setModuleToDelete(null)}
+              >
+                Cancelar
+              </button>
+
+              <button
+                className="btn-delete"
+                onClick={confirmDelete}
+              >
+                Deletar
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
-  )}  
-    </div>
-);
+  );
 };
 
 export default Material;

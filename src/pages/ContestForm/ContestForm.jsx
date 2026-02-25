@@ -128,7 +128,7 @@ const ContestForm = () => {
         </section>
 
         <section>
-          <h2>Se o contest ainda for ocorrer, o campo abaixo pode ser deixado em branco.</h2>
+          <h2>Se o contest ainda não ocorreu, deixe o campo abaixo em branco.</h2>
 
           <div className="field">
             <label>Link do mirror</label>

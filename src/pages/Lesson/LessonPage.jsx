@@ -12,6 +12,7 @@ const Lesson = () => {
   const { id } = useParams();
   const location = useLocation();
   const title = location.state?.lessonTitle;
+  const notes = location.state?.lessonNotes;
   const [extras, setExtras] = useState([])
   const [lessons, setLessons] = useState([])
   const [exercises, setExercises] = useState([])
@@ -33,7 +34,7 @@ const Lesson = () => {
       ]);
       setExercises(exercisesData);
       setExtras(extrasData);
-      setLessons(lessonsData);      
+      setLessons(lessonsData);
 
 
     } catch (error) {
@@ -54,7 +55,7 @@ const Lesson = () => {
     }
   }, [lessons]);
 
-    const getEmbedUrl = (url) => {
+  const getEmbedUrl = (url) => {
     if (!url) return "";
     const videoId = url.split("v=")[1];
     return `https://www.youtube.com/embed/${videoId}`;
@@ -69,57 +70,68 @@ const Lesson = () => {
       <div className="lesson-container">
 
         {lessons.length > 0 && (
-        <div className="media">
-          {selectedLesson && (
-            <iframe
-              className="video"
-              src={getEmbedUrl(selectedLesson.videoUrl)}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-              title={selectedLesson.title}
-            />
-          )}
-          <div className="more">
-            {lessons.map((lesson) => (
-              <div
-                key={lesson.id}
-                className={`link ${selectedLesson?.id === lesson.id ? "active" : ""}`}
-                onClick={() => setSelectedLesson(lesson)}
-              >
+          <div className="media">
+            {selectedLesson && (
+              <iframe
+                className="video"
+                src={getEmbedUrl(selectedLesson.videoUrl)}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                title={selectedLesson.title}
+              />
+            )}
+            <div className="more">
+              {lessons.map((lesson) => (
+                <div
+                  key={lesson.id}
+                  className={`link ${selectedLesson?.id === lesson.id ? "active" : ""}`}
+                  onClick={() => setSelectedLesson(lesson)}
+                >
                   <p>{lesson.title}</p>
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-  )}
+        )}
 
         {exercises.length > 0 && (
-  <div className="exercicios">
-    <p>Exercicios</p>
-      <div className="moreExercicios">
-        {exercises.map((exercice) => (
-          <div
-            key={exercice.id}
-            onClick={() => console.log("exercicio")}
-            className="exercicio"
-            style={{ "--marker-color": colors[exercice.difficulty] || "#5d0ebe" }}
-          >
-            {exercice.title}
+          <div className="exercicios">
+            <p className="tag">Exercicios</p>
+            <div className="moreExercicios">
+              {exercises.map((exercise) => (
+                <a
+                  key={exercise.id}
+                  href={exercise.ojUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="exercicio"
+                  style={{ "--marker-color": colors[exercise.difficulty] || "#5d0ebe" }}
+                >
+                  {exercise.title}
+                </a>
+              ))}
+            </div>
           </div>
-        ))}
-      </div>
-    </div>
-  )}
-        {extras.length > 0 && (
-        <div className="extra">
-          <p>Materiais extras para estudo</p>
-          <div className="moreExtra">
-            {extras.map((extra) => (
-              <a className="extraMaterial" key={extra.id} href={extra.url}>{extra.type}</a>
-            ))}
+        )}
+        {extras.length > 0 && notes && (
+          <div className="extra">
+            <p className="tag">Materiais extras para estudo</p>
+            <div className="moreExtra">
+              <p className="extraMaterialNotes">{notes}</p>
+              <ul>
+                {extras.map((extra) => (
+                  <li>
+                    <a className="extraMaterial"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      key={extra.id}
+                      href={extra.url}>{extra.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
         )}
 
 

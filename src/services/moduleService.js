@@ -12,6 +12,16 @@ export async function getModules() {
   return response.json()
 }
 
+export async function getModuleById(moduleId) {
+  const response = await fetch(`${API_BASE}/api/modules/${moduleId}`)
+
+  if (!response.ok) {
+    throw new Error("Erro ao buscar modulo")
+  }
+
+  return response.json()
+}
+
 export async function getExercises(moduleId) {
   const response = await fetch(`${API_BASE}/api/modules/${moduleId}/exercises`)
 
@@ -70,4 +80,31 @@ export async function createFullModule(moduleData) {
   }
 
   return await response.json();
+}
+
+export async function updateFullModule(id, moduleData) {
+  const response = await fetchAuth(`${API_BASE}/api/modules/full/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(moduleData)
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || "Erro ao atualizar módulo completo");
+  }
+
+  return await response.json();
+}
+
+export async function getFullModules() {
+  const response = await fetch(`${API_BASE}/api/modules/full`)
+
+  if (!response.ok) {
+    throw new Error("Erro ao buscar modulo")
+  }
+
+  return response.json()
 }

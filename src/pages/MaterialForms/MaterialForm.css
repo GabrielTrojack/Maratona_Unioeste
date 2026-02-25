@@ -240,9 +240,85 @@ textarea:focus {
   color: #511698;
 }
 
-/* ============================= */
-/* 📱 TABLET (até 1024px) */
-/* ============================= */
+.icon-action {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px;
+  border-radius: 10px;
+
+  cursor: pointer;
+  color: white;
+
+  transition:
+    background-color 0.18s ease,
+    transform 0.12s ease,
+    box-shadow 0.18s ease;
+
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+.icon-action.delete {
+  background-color: #ef4444;
+}
+
+.icon-action.delete:hover {
+  background-color: #dc2626;
+}
+
+.icon-action:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+.difficulty-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  padding: 0.6rem 2.5rem 0.6rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+
+  font-weight: 500;
+  font-size: 0.9rem;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  background-color: #f5f5f5;
+  background-image: url("data:image/svg+xml,%3Csvg fill='%23ffffff' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  background-size: 18px;
+  
+}
+
+.difficulty-select:focus {
+  outline: none;
+  border-color: #560DAE;
+  box-shadow: 0 0 0 3px rgba(86, 13, 174, 0.2);
+}
+
+.difficulty-select[data-difficulty="EASY"] {
+  background-color: #4CAF50 ;
+  color: #fff ;
+}
+
+.difficulty-select[data-difficulty="MEDIUM"] {
+  background-color: #FFC107 ;
+  color: #fff ;
+}
+
+.difficulty-select[data-difficulty="HARD"] {
+  background-color: #F44336 ;
+  color: #fff ;
+}
+
+
 @media (max-width: 1024px) {
   .form {
     max-width: 90%;

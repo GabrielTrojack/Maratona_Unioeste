@@ -65,7 +65,7 @@
 .link.active {
   background-color: white;
   color: #560DAE;
-  border: 2px solid #560DAE;
+  border: 2px white;
   font-weight: 600;
 }
 
@@ -89,11 +89,22 @@
 }
 
 .exercicio {
+  display: block;              
   padding: 1rem;
   border-radius: 10px;
   background-color: #5d0ebe;
   width: 100%;
-  position: relative; 
+  position: relative;
+  text-decoration: none;       
+  color: white;                
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.exercicio:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  background-color: #6f1ed8;
 }
 
 .exercicio::after {
@@ -129,10 +140,28 @@
   font-size: 15px;
   font-weight: 500;
   color: #fff;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.extraMaterialNotes {
+  display: inline-block;
+  margin-top: 0.5%;
+  margin-left: 1%;
+  font-size: 15px;
+  color: #fff;
   text-decoration: none;
   position: relative;
   transition: color 0.2s ease;
 }
+
+.tag {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+}
+
 
 .extraMaterial::after {
   content: "";
@@ -153,7 +182,7 @@
   width: 100%;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
   .media {
     flex-direction: column;
     height: auto;
