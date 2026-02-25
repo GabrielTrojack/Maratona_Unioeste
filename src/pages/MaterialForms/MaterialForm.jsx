@@ -4,7 +4,6 @@ import {
   Trash2,
   ArrowRight,
   ArrowLeft,
-  Pencil,
   Check,
 } from "lucide-react";
 import { createFullModule } from "../../services/moduleService";
@@ -39,7 +38,7 @@ const Material = () => {
     const templates = {
       lessons: {
         title: "",
-        slug: "slug",
+        slug: "slugag",
         summary: "summary",
         videoUrl: "",
         orderIndex: moduleData.lessons.length + 1,
@@ -93,6 +92,7 @@ const Material = () => {
 
   return (
     <div className="material-form">
+      <h1>Criar novo modulo</h1>
       <div className="form">
 
         {step === 1 && (

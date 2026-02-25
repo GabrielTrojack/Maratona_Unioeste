@@ -1,39 +1,22 @@
 import React from "react";
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+
 import "./LessonPage.css";
 
-import { getExtras, getLessons } from "../../services/moduleService"
+import { getExtras, getLessons, getExercises } from "../../services/moduleService"
 
 import FullScreenLoader from "../../components/FullScreenLoader/FullScreenLoader";
 
 const Lesson = () => {
   const { id } = useParams();
+  const location = useLocation();
+  const title = location.state?.lessonTitle;
   const [extras, setExtras] = useState([])
   const [lessons, setLessons] = useState([])
-  const [exercices, setExercices] = useState([])
+  const [exercises, setExercises] = useState([])
   const [loading, setLoading] = useState(true);
   const [selectedLesson, setSelectedLesson] = useState(null);
-
-  useEffect(() => {
-  setExercices([
-    {
-      id: 1,
-      title: "Soma Simples",
-      difficulty: "EASY"
-    },
-    {
-      id: 2,
-      title: "Busca Binária",
-      difficulty: "MEDIUM"
-    },
-    {
-      id: 2,
-      title: "Menino Banana",
-      difficulty: "HARD"
-    }
-  ]);
-}, []);
 
   const colors = {
     EASY: "#4CAF50",
@@ -43,11 +26,12 @@ const Lesson = () => {
 
   async function loadData() {
     try {
-      const [extrasData, lessonsData] = await Promise.all([
+      const [exercisesData, extrasData, lessonsData] = await Promise.all([
+        getExercises(id),
         getExtras(id),
         getLessons(id)
       ]);
-
+      setExercises(exercisesData);
       setExtras(extrasData);
       setLessons(lessonsData);      
 
@@ -81,7 +65,7 @@ const Lesson = () => {
 
   return (
     <div className="lesson-page">
-      <h1>Aula 1 - Maratona de programação  e  c++ introdutório</h1>
+      <h1>{title}</h1>
       <div className="lesson-container">
 
         {lessons.length > 0 && (
@@ -110,11 +94,11 @@ const Lesson = () => {
         </div>
   )}
 
-        {exercices.length > 0 && (
+        {exercises.length > 0 && (
   <div className="exercicios">
     <p>Exercicios</p>
       <div className="moreExercicios">
-        {exercices.map((exercice) => (
+        {exercises.map((exercice) => (
           <div
             key={exercice.id}
             onClick={() => console.log("exercicio")}

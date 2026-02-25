@@ -65,7 +65,9 @@ const Material = () => {
           {module.map((mod) => (
             <div
               key={mod.id}
-              onClick={() => navigate(`/materials/${mod.id}`)}
+              onClick={() => navigate(`/materials/${mod.id}`, {
+                          state: { lessonTitle: mod.title }
+                        })}
               className="aula"
             >
               <img className="icon-main" src={menu} alt="" />

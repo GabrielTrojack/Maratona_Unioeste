@@ -12,6 +12,16 @@ export async function getModules() {
   return response.json()
 }
 
+export async function getExercises(moduleId) {
+  const response = await fetch(`${API_BASE}/api/modules/${moduleId}/exercises`)
+
+  if (!response.ok) {
+    throw new Error("Erro ao buscar exercicios")
+  }
+
+  return response.json()
+}
+
 export async function getExtras(moduleId) {
   const response = await fetch(`${API_BASE}/api/modules/${moduleId}/materials`)
 
