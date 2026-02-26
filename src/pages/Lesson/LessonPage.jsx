@@ -100,6 +100,16 @@ const Lesson = () => {
     }
   };
 
+  const difficultyOrder = {
+  EASY: 0,
+  MEDIUM: 1,
+  HARD: 2
+};
+
+const sortedExercises = [...exercises].sort(
+  (a, b) => difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty]
+);
+
 
   if (loading) return <FullScreenLoader />;
 
@@ -143,7 +153,7 @@ const Lesson = () => {
           <div className="exercicios">
             <p className="tag">Exercicios</p>
             <div className="moreExercicios">
-              {exercises.map((exercise) => (
+              {sortedExercises.map((exercise) => (
                 <a
                   key={exercise.id}
                   href={exercise.ojUrl}
