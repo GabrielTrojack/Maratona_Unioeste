@@ -9,11 +9,14 @@ export async function login(username, password) {
     body: JSON.stringify({ username, password })
   });
 
-  if (!response.ok) {
-    throw new Error("Login inválido");
-  }
-
   const data = await response.json();
+
+  if (!response.ok) {
+    throw {
+      status: response.status,
+      message: data?.message || "Erro no login"
+    };
+  }
 
   localStorage.setItem("token", data.token);
 

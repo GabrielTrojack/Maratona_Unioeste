@@ -3,6 +3,8 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { Pencil, Trash2 } from "lucide-react";
 
+import toast from "react-hot-toast";
+
 import "./MaterialPage.css";
 import menu from "../../assets/menu.svg";
 
@@ -16,6 +18,7 @@ const Material = () => {
   const { isAuthenticated } = useAuth();
   const [module, setModule] = useState([])
   const [loading, setLoading] = useState(true);
+  const [deleting, setDeleting] = useState(false);
   const [moduleToDelete, setModuleToDelete] = useState(null);
 
   async function loadModules() {
@@ -30,16 +33,34 @@ const Material = () => {
   }
 
   async function confirmDelete() {
+    if (!moduleToDelete) return;
+
     try {
+      setDeleting(true);
+
       await deleteModule(moduleToDelete.id);
 
       setModule(prev =>
         prev.filter(m => m.id !== moduleToDelete.id)
       );
 
+      toast.success("Módulo deletado com sucesso!");
+
       setModuleToDelete(null);
+
     } catch (error) {
       console.error("Erro ao deletar módulo:", error);
+
+      if (error.status === 403) {
+        toast.error("Você não tem permissão para deletar.");
+      } else if (error.status === 404) {
+        toast.error("Módulo não encontrado.");
+      } else {
+        toast.error(error.message || "Erro ao deletar módulo.");
+      }
+
+    } finally {
+      setDeleting(false);
     }
   }
 
@@ -122,8 +143,9 @@ const Material = () => {
               <button
                 className="btn-delete"
                 onClick={confirmDelete}
+                disabled={deleting}
               >
-                Deletar
+                {deleting ? "Deletando..." : "Deletar"}
               </button>
             </div>
           </div>

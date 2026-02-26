@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./ClassSignup.css";
 import writenlogo from "../../assets/writenlogo.svg";
 
+import toast from "react-hot-toast";
 
 import { createRegistration } from "../../services/classService";
 import { useAuth } from "../../context/AuthContext";
@@ -11,6 +12,8 @@ import { useAuth } from "../../context/AuthContext";
 const Class = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -33,27 +36,48 @@ const Class = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  setError(null);
 
-    try {
-      await createRegistration(formData);
-      alert("Cadastro realizado com sucesso!");
-      setFormData({
-        name: "",
-        email: "",
-        whatsapp: "",
-        institution: "",
-        campus: "string",
-        course: "string",
-        semester: "string",
-        howDidYouHear: "string",
-        previousExperience: "string",
-        message: "string"
-      });
-    } catch (error) {
-      alert("Erro ao cadastrar: " + error.message);
+  if (!formData.name || !formData.email || !formData.whatsapp) {
+    toast.error("Preencha os campos obrigatórios.");
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    await createRegistration(formData);
+
+    toast.success("Cadastro realizado com sucesso!");
+
+    setFormData({
+      name: "",
+      email: "",
+      whatsapp: "",
+      institution: "",
+      campus: "string",
+      course: "string",
+      semester: "string",
+      howDidYouHear: "string",
+      previousExperience: "string",
+      message: "string"
+    });
+
+  } catch (err) {
+    if (err.status === 409) {
+      toast.error("Este e-mail já está cadastrado.");
+    } else if (err.status === 400) {
+      toast.error("Dados inválidos.");
+    } else if (err.status === 500) {
+      toast.error("Erro interno do servidor.");
+    } else {
+      toast.error(err.message || "Erro ao cadastrar.");
     }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="cadastro-page">
@@ -77,7 +101,7 @@ const Class = () => {
           <input
             type="text"
             name="name"
-            placeholder="Nome"
+            placeholder="* Nome"
             value={formData.name}
             onChange={handleChange}
           />
@@ -85,7 +109,7 @@ const Class = () => {
           <input
             type="email"
             name="email"
-            placeholder="E-mail"
+            placeholder="* E-mail"
             value={formData.email}
             onChange={handleChange}
           />
@@ -93,7 +117,7 @@ const Class = () => {
           <input
             type="text"
             name="whatsapp"
-            placeholder="WhatsApp"
+            placeholder="* WhatsApp"
             value={formData.whatsapp}
             onChange={handleChange}
           />
@@ -106,10 +130,12 @@ const Class = () => {
             onChange={handleChange}
           />
 
-          <button type="submit">Cadastrar</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Enviando..." : "Cadastrar"}
+          </button>
         </form>
 
-        
+
         {isAuthenticated && (
           <button className="view-button" onClick={() => navigate("/class/register")}>
             Ver cadastros

@@ -102,6 +102,11 @@
   transform: scale(1.05);
 }
 
+.error-message {
+  padding: 0.7rem;
+  color: #ff4d4d;
+  font-size: 0.9rem;
+}
 
 @media (max-width: 900px) {
   .cadastro-card {

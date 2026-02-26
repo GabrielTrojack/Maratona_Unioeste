@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import "./AdmLogin.css";
 
+import toast from "react-hot-toast";
 import check from "../../assets/Check.svg";
 
 import { login } from "../../services/authService";
@@ -13,21 +14,42 @@ const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const { login: saveToken, isAuthenticated } = useAuth();
 
   async function handleLogin(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const data = await login(username, password);
-
-      saveToken(data.token);
-      navigate("/");
-
-    } catch (err) {
-      alert("Login inválido");
-    }
+  if (!username || !password) {
+    toast.error("Preencha todos os campos");
+    return;
   }
+
+  setLoading(true);
+
+  try {
+    const data = await login(username, password);
+
+    saveToken(data.token);
+
+    toast.success("Login realizado com sucesso!");
+
+    navigate("/");
+
+  } catch (err) {
+    if (err.status === 401) {
+      toast.error("Usuário ou senha inválidos.");
+    } else if (err.status === 500) {
+      toast.error("Erro interno do servidor.");
+    } else if (err.status) {
+      toast.error(err.message || "Erro inesperado.");
+    } else {
+      toast.error("Erro de conexão com o servidor.");
+    }
+  } finally {
+    setLoading(false);
+  }
+}
 
   if (isAuthenticated) {
     return (
@@ -47,7 +69,7 @@ const Login = () => {
     <div className="login-page">
       <form onSubmit={handleLogin}>
         <div className="login-content">
-          <p>Login</p>
+          <h1>Login</h1>
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -56,11 +78,13 @@ const Login = () => {
           />
           <input
             placeholder="Senha"
-            type="text"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit">Entrar</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Entrando..." : "Entrar"}
+          </button>
         </div>
       </form>
     </div>

@@ -3,53 +3,141 @@ import { fetchAuth } from "./authService"
 
 
 export async function getModules() {
-  const response = await fetch(`${API_BASE}/api/modules`)
+  const response = await fetch(`${API_BASE}/api/modules`);
 
   if (!response.ok) {
-    throw new Error("Erro ao buscar modulos")
+    let errorData;
+
+    try {
+      errorData = await response.json();
+    } catch {
+      errorData = { message: await response.text() };
+    }
+
+    const error = new Error(
+      errorData.message || "Erro ao buscar módulos"
+    );
+
+    error.status = response.status;
+    error.code = errorData.code;
+    error.details = errorData.details;
+
+    throw error;
   }
 
-  return response.json()
+  return response.json();
 }
 
 export async function getModuleById(moduleId) {
-  const response = await fetch(`${API_BASE}/api/modules/${moduleId}`)
+  const response = await fetch(
+    `${API_BASE}/api/modules/${moduleId}`
+  );
 
   if (!response.ok) {
-    throw new Error("Erro ao buscar modulo")
+    let errorData;
+
+    try {
+      errorData = await response.json();
+    } catch {
+      errorData = { message: await response.text() };
+    }
+
+    const error = new Error(
+      errorData.message || "Erro ao buscar módulo"
+    );
+
+    error.status = response.status;
+    error.code = errorData.code;
+    error.details = errorData.details;
+
+    throw error;
   }
 
-  return response.json()
+  return response.json();
 }
 
 export async function getExercises(moduleId) {
-  const response = await fetch(`${API_BASE}/api/modules/${moduleId}/exercises`)
+  const response = await fetch(
+    `${API_BASE}/api/modules/${moduleId}/exercises`
+  );
 
   if (!response.ok) {
-    throw new Error("Erro ao buscar exercicios")
+    let errorData;
+
+    try {
+      errorData = await response.json();
+    } catch {
+      errorData = { message: await response.text() };
+    }
+
+    const error = new Error(
+      errorData.message || "Erro ao buscar exercícios"
+    );
+
+    error.status = response.status;
+    error.code = errorData.code;
+    error.details = errorData.details;
+
+    throw error;
   }
 
-  return response.json()
+  return response.json();
 }
 
 export async function getExtras(moduleId) {
-  const response = await fetch(`${API_BASE}/api/modules/${moduleId}/materials`)
+  const response = await fetch(
+    `${API_BASE}/api/modules/${moduleId}/materials`
+  );
 
   if (!response.ok) {
-    throw new Error("Erro ao buscar materiais")
+    let errorData;
+
+    try {
+      errorData = await response.json();
+    } catch {
+      errorData = { message: await response.text() };
+    }
+
+    const error = new Error(
+      errorData.message || "Erro ao buscar materiais"
+    );
+
+    error.status = response.status;
+    error.code = errorData.code;
+    error.details = errorData.details;
+
+    throw error;
   }
 
-  return response.json()
+  return response.json();
 }
 
 export async function getLessons(moduleId) {
-  const response = await fetch(`${API_BASE}/api/modules/${moduleId}/lessons`)
+  const response = await fetch(
+    `${API_BASE}/api/modules/${moduleId}/lessons`
+  );
 
   if (!response.ok) {
-    throw new Error("Erro ao buscar video aulas")
+    let errorData;
+
+    try {
+      errorData = await response.json();
+    } catch {
+      errorData = { message: await response.text() };
+    }
+
+    const error = new Error(
+      errorData.message || "Erro ao buscar video aulas"
+    );
+
+    error.status = response.status;
+    error.code = errorData.code;
+    error.details = errorData.details;
+
+    throw error;
   }
 
-  return response.json()
+  return response.json();
 }
 
 export async function deleteModule(id) {
@@ -58,11 +146,26 @@ export async function deleteModule(id) {
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText || "Erro ao deletar módulo");
+    let errorData;
+
+    try {
+      errorData = await response.json();
+    } catch {
+      errorData = { message: await response.text() };
+    }
+
+    const error = new Error(
+      errorData.message || "Erro ao deletar módulo"
+    );
+
+    error.status = response.status;
+    error.code = errorData.code;
+    error.details = errorData.details;
+
+    throw error;
   }
 
-  return await response.json();
+  return response.json();
 }
 
 export async function createFullModule(moduleData) {
@@ -92,11 +195,26 @@ export async function updateFullModule(id, moduleData) {
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText || "Erro ao atualizar módulo completo");
-  }
+    let errorData;
 
-  return await response.json();
+    try {
+      errorData = await response.json();
+    } catch {
+      errorData = { message: await response.text() };
+    }
+
+    const error = new Error(
+      errorData.message || "Erro ao atualizar módulo completo"
+    );
+
+    error.status = response.status;
+    error.code = errorData.code;
+    error.details = errorData.details;
+
+    throw error;
+  }
+  
+  return response.json();
 }
 
 export async function getFullModules() {

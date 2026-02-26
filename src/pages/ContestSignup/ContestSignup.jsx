@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 
-import "./ContestSignup.css";
+import toast from "react-hot-toast";
 
-import check from "../../assets/Check.svg";
+import "./ContestSignup.css";
 
 import { createContestTeam } from "../../services/contestService";
 
@@ -11,8 +11,8 @@ const ContestSignup = () => {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const teamBased = location.state?.isTeamBased;
-  const [success, setSuccess] = useState(false);
   const [form, setForm] = useState({
     teamName: "",
     coachName: "",
@@ -35,11 +35,17 @@ const ContestSignup = () => {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    if (loading) return;
+
     try {
+      setLoading(true);
+
       let payload;
+
       if (teamBased) {
         if (!form.teamName || !form.competitor1) {
-          alert("Preencha os campos obrigatórios");
+          toast.error("Preencha os campos obrigatórios.");
+          setLoading(false);
           return;
         }
 
@@ -54,10 +60,10 @@ const ContestSignup = () => {
           cafeComLeite: form.cafeComLeite,
         };
 
-      }
-      else {
+      } else {
         if (!form.competitor1 || !form.institution) {
-          alert("Preencha os campos obrigatórios");
+          toast.error("Preencha os campos obrigatórios.");
+          setLoading(false);
           return;
         }
 
@@ -70,7 +76,9 @@ const ContestSignup = () => {
 
       await createContestTeam(id, payload);
 
-      setSuccess(true);
+      toast.success(
+        `${teamBased ? "Time" : "Participante"} registrado com sucesso!`
+      );
 
       setForm({
         teamName: "",
@@ -82,27 +90,22 @@ const ContestSignup = () => {
         reserve: "",
         cafeComLeite: false,
       });
-      const timer = setTimeout(() => {
-        navigate("/contests");
-      }, 500);
+
+      navigate("/contests");
 
     } catch (err) {
       console.error(err);
-      alert(err.message || "Erro ao cadastrar inscrição");
-    }
-  }
 
-  if (success) {
-    return (
-      <div className="login-page">
-        <div className="success">
-          <div>
-            <img src={check} alt="" />
-            <h1>{teamBased?"Time":"Participante"} registrado com sucesso</h1>
-          </div>
-        </div>
-      </div>
-    );
+      if (err.status === 409) {
+        toast.error("Já existe uma inscrição com esses dados.");
+      } else if (err.status === 400 && err.details) {
+        toast.error(err.message || "Dados inválidos.");
+      } else {
+        toast.error("Erro ao cadastrar inscrição.");
+      }
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -191,8 +194,12 @@ const ContestSignup = () => {
             </label>
           )}
 
-          <button type="submit">
-            {teamBased ? "Inscrever Time" : "Inscrever Competidor"}
+          <button type="submit" disabled={loading}>
+            {loading
+              ? "Enviando..."
+              : teamBased
+                ? "Inscrever Time"
+                : "Inscrever Participante"}
           </button>
         </div>
       </form>

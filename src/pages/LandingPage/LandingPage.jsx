@@ -1,15 +1,9 @@
 import React from "react";
 import "./LandingPage.css";
-import Navbar from "../../components/Navbar/Navbar";
-import Footer from "../../components/Footer/Footer";
-
-import trofeu from "../../assets/trofeu.svg";
-import carlos from "../../assets/SuperCarlos.svg";
 
 const Landing = () => {
   return (
     <div className="landing-page">
-      <Navbar />
       <div className="landing-content">
 
         <div className="hero">

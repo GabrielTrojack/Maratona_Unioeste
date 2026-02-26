@@ -125,6 +125,10 @@ const Material = () => {
   }
 
   async function handleSubmit() {
+    if (!moduleData.title.trim()) {
+      toast.error("O título do módulo é obrigatório.");
+      return;
+    }
     if (isSubmitting) return;
 
     try {
@@ -132,19 +136,30 @@ const Material = () => {
 
       if (isEditMode) {
         await updateFullModule(id, moduleData);
+        toast.success("Módulo atualizado com sucesso!");
       } else {
         await createFullModule(moduleData);
+        toast.success("Módulo criado com sucesso!");
       }
 
       navigate("/materials");
+
     } catch (error) {
       console.error(error);
+
+      if (error.status === 400) {
+        toast.error(error.message);
+      } else if (error.status === 403) {
+        toast.error("Você não tem permissão.");
+      } else {
+        toast.error("Erro ao salvar módulo.");
+      }
     } finally {
       setIsSubmitting(false);
     }
   }
   if (loading) return <FullScreenLoader />;
-  
+
   return (
     <div className="material-form">
       <h1>{isEditMode ? "Editar módulo" : "Criar novo módulo"}</h1>

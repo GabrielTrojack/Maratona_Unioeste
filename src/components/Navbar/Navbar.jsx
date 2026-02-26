@@ -40,8 +40,8 @@ const Navbar = () => {
         <ul className={menuOpen ? "nav-links active" : "nav-links"}>
           <li><NavLink to="/" end onClick={closeMenu}>Início</NavLink></li>
           <li><NavLink to="/materials" onClick={closeMenu}>Materiais</NavLink></li>
-          <li><NavLink to="/class" onClick={closeMenu}>Participe</NavLink></li>
           <li><NavLink to="/contests" onClick={closeMenu}>Contests</NavLink></li>
+          <li><NavLink to="/class" onClick={closeMenu}>Participe</NavLink></li>
           {/* <li><NavLink to="/mural" onClick={closeMenu}>Mural</NavLink></li> */}
         </ul>
 

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 
+import toast from "react-hot-toast";
+
 import "./ContestRegister.css";
 
 import { getContestTeams } from "../../services/contestService";
@@ -19,9 +21,18 @@ const ContestRegister = () => {
     try {
       const data = await getContestTeams(id);
       setTeams(data);
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao carregar times");
+    } catch (err) {
+      console.error(err);
+
+      if (err.status === 401) {
+        toast.error("Sessão expirada.");
+      } else if (err.status === 403) {
+        toast.error("Você não tem permissão para visualizar os times.");
+      } else if (err.status === 404) {
+        toast.error("Contest não encontrado.");
+      } else {
+        toast.error("Erro ao carregar times.");
+      }
     } finally {
       setLoading(false);
     }
@@ -29,7 +40,7 @@ const ContestRegister = () => {
 
   useEffect(() => {
     loadTeams();
-  }, []);
+  }, [id]);
 
   if (loading) return <FullScreenLoader />;
 
@@ -37,11 +48,11 @@ const ContestRegister = () => {
     <div className="teams-page">
       <div className="teams-content">
 
-        <h1>{isTeamBased?"Times":"Participantes"} Inscritos</h1>
+        <h1>{teams.length}{isTeamBased ? "Times" : "Participantes"} Inscritos</h1>
 
-        {teams.length === 0 && (
-          <p>Nenhum time inscrito neste contest.</p>
-        )}
+        <p>
+          Nenhum {isTeamBased ? "time" : "participante"} inscrito neste contest.
+        </p>
 
         {teams.map((team) => {
 

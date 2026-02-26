@@ -3,6 +3,8 @@ import "./ContestForm.css";
 import { createContest, updateContest, getContestById } from "../../services/contestService";
 import { useParams, useNavigate } from "react-router-dom";
 
+import toast from "react-hot-toast";
+
 const ContestForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -38,8 +40,9 @@ const ContestForm = () => {
         });
 
       } catch (err) {
-        alert("Erro ao carregar contest");
-        navigate("/contests");
+        toast.error("Erro ao carregar contest.");
+
+          navigate("/contests");
       }
     }
 
@@ -47,11 +50,11 @@ const ContestForm = () => {
   }, [id, isEditMode, navigate]);
 
   async function handleSubmit(e) {
+    if (loading) return;
     e.preventDefault();
+    setLoading(true);
 
     try {
-      setLoading(true);
-
       const payload = {
         name: form.name,
         durationMinutes: Number(form.durationHours) * 60,
@@ -62,17 +65,28 @@ const ContestForm = () => {
 
       if (isEditMode) {
         await updateContest(id, payload);
-        alert("Contest atualizado!");
+        toast.success("Contest atualizado com sucesso!");
       } else {
         await createContest(payload);
-        alert("Contest criado!");
+        toast.success("Contest criado com sucesso!");
       }
 
-      navigate("/contests");
-      
+      setTimeout(() => {
+        navigate("/contests");
+      }, 800);
 
     } catch (err) {
-      alert(err.message);
+      console.log("Erro completo:", err);
+
+      if (err.status === 400) {
+        toast.error("Dados inválidos.");
+      } else if (err.status === 409) {
+        toast.error("Já existe um contest com esse nome.");
+      } else if (err.status === 500) {
+        toast.error("Erro interno do servidor.");
+      } else {
+        toast.error(err.message || "Erro ao salvar contest.");
+      }
     } finally {
       setLoading(false);
     }

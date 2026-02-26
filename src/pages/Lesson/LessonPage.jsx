@@ -4,18 +4,16 @@ import { useParams, useLocation } from "react-router-dom";
 
 import "./LessonPage.css";
 
-import { getExtras, getLessons, getExercises } from "../../services/moduleService"
+import { getExtras, getLessons, getExercises, getModuleById } from "../../services/moduleService"
 
 import FullScreenLoader from "../../components/FullScreenLoader/FullScreenLoader";
 
 const Lesson = () => {
   const { id } = useParams();
-  const location = useLocation();
-  const title = location.state?.lessonTitle;
-  const notes = location.state?.lessonNotes;
   const [extras, setExtras] = useState([])
   const [lessons, setLessons] = useState([])
   const [exercises, setExercises] = useState([])
+  const [module, setModule] = useState(null)
   const [loading, setLoading] = useState(true);
   const [selectedLesson, setSelectedLesson] = useState(null);
 
@@ -26,19 +24,49 @@ const Lesson = () => {
   };
 
   async function loadData() {
+    setLoading(true);
+
     try {
-      const [exercisesData, extrasData, lessonsData] = await Promise.all([
+      const [
+        exercisesResult,
+        extrasResult,
+        lessonsResult,
+        moduleResult
+      ] = await Promise.allSettled([
         getExercises(id),
         getExtras(id),
-        getLessons(id)
+        getLessons(id),
+        getModuleById(id)
       ]);
-      setExercises(exercisesData);
-      setExtras(extrasData);
-      setLessons(lessonsData);
 
+      if (exercisesResult.status === "fulfilled") {
+        setExercises(exercisesResult.value);
+      } else {
+        console.error(exercisesResult.reason);
+        toast.error("Erro ao carregar exercícios.");
+      }
 
-    } catch (error) {
-      console.error("Erro ao carregar dados:", error);
+      if (extrasResult.status === "fulfilled") {
+        setExtras(extrasResult.value);
+      } else {
+        console.error(extrasResult.reason);
+        toast.error("Erro ao carregar materiais extras.");
+      }
+
+      if (lessonsResult.status === "fulfilled") {
+        setLessons(lessonsResult.value);
+      } else {
+        console.error(lessonsResult.reason);
+        toast.error("Erro ao carregar vídeo aulas.");
+      }
+
+      if (moduleResult.status === "fulfilled") {
+        setModule(moduleResult.value);
+      } else {
+        console.error(moduleResult.reason);
+        toast.error("Erro ao carregar módulo.");
+      }
+
     } finally {
       setLoading(false);
     }
@@ -57,8 +85,19 @@ const Lesson = () => {
 
   const getEmbedUrl = (url) => {
     if (!url) return "";
-    const videoId = url.split("v=")[1];
-    return `https://www.youtube.com/embed/${videoId}`;
+
+    try {
+      const parsedUrl = new URL(url);
+
+      if (parsedUrl.hostname.includes("youtu.be")) {
+        return `https://www.youtube.com/embed${parsedUrl.pathname}`;
+      }
+
+      const videoId = parsedUrl.searchParams.get("v");
+      return `https://www.youtube.com/embed/${videoId}`;
+    } catch {
+      return "";
+    }
   };
 
 
@@ -66,9 +105,14 @@ const Lesson = () => {
 
   return (
     <div className="lesson-page">
-      <h1>{title}</h1>
+      <h1>{module?.title}</h1>
       <div className="lesson-container">
-
+        {!loading &&
+          lessons.length === 0 &&
+          exercises.length === 0 &&
+          extras.length === 0 && (
+            <p>Nenhum conteúdo disponível para este módulo.</p>
+          )}
         {lessons.length > 0 && (
           <div className="media">
             {selectedLesson && (
@@ -114,18 +158,17 @@ const Lesson = () => {
             </div>
           </div>
         )}
-        {extras.length > 0 && notes && (
+        {(extras.length > 0 || module?.notes) && (
           <div className="extra">
             <p className="tag">Materiais extras para estudo</p>
             <div className="moreExtra">
-              <p className="extraMaterialNotes">{notes}</p>
+              <p className="extraMaterialNotes">{module?.notes}</p>
               <ul>
                 {extras.map((extra) => (
-                  <li>
+                  <li key={extra.id} >
                     <a className="extraMaterial"
                       target="_blank"
                       rel="noopener noreferrer"
-                      key={extra.id}
                       href={extra.url}>{extra.title}</a>
                   </li>
                 ))}

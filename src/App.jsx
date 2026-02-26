@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import { Toaster } from "react-hot-toast";
 
 import AdminRoute from "./auth/AdminRoute.jsx";
 import FullScreenLoader from "./components/FullScreenLoader/FullScreenLoader.jsx";
@@ -36,6 +37,7 @@ function App() {
         <BrowserRouter>
           <NavBar />
           <Suspense fallback={<FullScreenLoader />}>
+            <Toaster />
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/login" element={<Login />} />

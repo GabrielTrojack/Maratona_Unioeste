@@ -2,14 +2,21 @@ import API_BASE from "./api"
 import { fetchAuth } from "./authService"
 
 
-export async function getRegistrations() { 
-const response = await fetchAuth(`${API_BASE}/api/registrations`);
+export async function getRegistrations() {
+  const response = await fetchAuth(`${API_BASE}/api/registrations`);
 
-  if (!response.ok) { 
-    throw new Error("Erro ao buscar contests") 
-  } 
-  
-  return await response.json(); 
+  const data = await response.json().catch(() => null);
+
+  if (!response.ok) {
+    const error = new Error(
+      data?.message || "Erro ao buscar cadastros"
+    );
+    error.status = response.status;
+    error.data = data;
+    throw error;
+  }
+
+  return data;
 }
 
 export async function createRegistration(registrationData) {
@@ -21,10 +28,16 @@ export async function createRegistration(registrationData) {
     body: JSON.stringify(registrationData)
   });
 
+  const data = await response.json().catch(() => null);
+
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText || "Erro ao criar inscrição");
+    const error = new Error(
+      data?.message || "Erro ao criar inscrição"
+    );
+    error.status = response.status;
+    error.data = data;
+    throw error;
   }
 
-  return response.json();
+  return data;
 }

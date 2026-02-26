@@ -23,7 +23,7 @@
   text-align: center;
 }
 
-.login-content p {
+.login-content h1 {
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 20px;
@@ -65,4 +65,10 @@
 .login-content button:active {
   transform: translateY(0);
   box-shadow: none;
+}
+
+.error-message {
+  padding: 0.7rem;
+  color: #ff4d4d;
+  font-size: 0.9rem;
 }

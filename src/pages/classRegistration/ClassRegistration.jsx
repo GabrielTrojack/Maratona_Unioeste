@@ -13,7 +13,18 @@ const ClassRegister = () => {
         const data = await getRegistrations();
         setCadastros(data.content);
       } catch (err) {
-        setError(err.message);
+        console.log("Erro completo:", err);
+
+        if (err.status === 401) {
+          localStorage.removeItem("token");
+          window.location.href = "/login";
+        } else if (err.status === 403) {
+          setError("Você não tem permissão para acessar.");
+        } else if (err.status === 500) {
+          setError("Erro interno do servidor.");
+        } else {
+          setError(err.message || "Erro ao carregar cadastros.");
+        }
       } finally {
         setLoading(false);
       }
@@ -27,26 +38,26 @@ const ClassRegister = () => {
 
   return (
     <div className="registrations-page">
-  <div className="registrations-content">
-    <h1>Cadastros</h1>
+      <div className="registrations-content">
+        <h1>Cadastros</h1>
 
-    {cadastros.map((cadastro) => (
-      <div key={cadastro.id} className="registration-card">
-        
-        <div className="registration-header">
-          <h2>{cadastro.name}</h2>
-        </div>
+        {cadastros.map((cadastro) => (
+          <div key={cadastro.id} className="registration-card">
 
-        <div className="registration-info">
-          <p><strong>Email:</strong> {cadastro.email}</p>
-          <p><strong>WhatsApp:</strong> {cadastro.whatsapp}</p>
-          <p><strong>Instituição:</strong> {cadastro.institution}</p>
-        </div>
+            <div className="registration-header">
+              <h2>{cadastro.name}</h2>
+            </div>
 
+            <div className="registration-info">
+              <p><strong>Email:</strong> {cadastro.email}</p>
+              <p><strong>WhatsApp:</strong> {cadastro.whatsapp}</p>
+              <p><strong>Instituição:</strong> {cadastro.institution}</p>
+            </div>
+
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
-</div>
+    </div>
   );
 };
 
