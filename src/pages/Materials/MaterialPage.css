@@ -139,7 +139,6 @@
   text-overflow: ellipsis;
 }
 
-/* ===== OVERLAY ===== */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -152,7 +151,6 @@
   animation: fadeIn 0.2s ease-in-out;
 }
 
-/* ===== MODAL BOX ===== */
 .modal {
   background: #ffffff;
   width: 420px;
@@ -182,7 +180,6 @@
   font-weight: 600;
 }
 
-/* ===== ACTION BUTTONS ===== */
 .modal-actions {
   display: flex;
   justify-content: center;
@@ -201,7 +198,6 @@
   transition: all 0.2s ease;
 }
 
-/* Cancel Button */
 .btn-cancel {
   background: #f2f2f2;
   color: #333;
@@ -212,7 +208,6 @@
   transform: translateY(-1px);
 }
 
-/* Delete Button */
 .btn-delete {
   background: linear-gradient(135deg, #e53935, #c62828);
   color: white;
@@ -223,7 +218,6 @@
   box-shadow: 0 8px 18px rgba(229, 57, 53, 0.35);
 }
 
-/* ===== ANIMATIONS ===== */
 @keyframes fadeIn {
   from {
     opacity: 0;

@@ -12,7 +12,6 @@ import { useAuth } from "../../context/AuthContext";
 const Class = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -74,8 +73,6 @@ const Class = () => {
     } else {
       toast.error(err.message || "Erro ao cadastrar.");
     }
-  } finally {
-    setLoading(false);
   }
 };
 

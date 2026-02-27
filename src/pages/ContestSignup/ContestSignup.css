@@ -2,18 +2,12 @@
   width: 100vw;
   min-height: 100vh;
   background: #560DAE;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* evita ficar atrás da navbar fixa */
-  padding-top: 6rem; /* altura da sua navbar */
+  padding-top: 6rem; 
   padding-bottom: 30px;
-
   box-sizing: border-box;
-
-  /* se a tela for baixa permite rolar */
   overflow-y: auto;
 }
 
@@ -33,9 +27,9 @@
   color: #ffffff;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* vertical */
-  align-items: center;     /* horizontal */
-  text-align: center;      /* centraliza texto */
+  justify-content: center; 
+  align-items: center;    
+  text-align: center;      
 }
 
 .team-form h1 {

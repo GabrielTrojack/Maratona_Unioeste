@@ -72,8 +72,8 @@
 .about {
   display: flex;
   align-items: center;
-  justify-content: center;          /* alinha verticalmente imagem e texto */
-  gap: 3rem;                    /* espaço entre imagem e texto */
+  justify-content: center;         
+  gap: 3rem;                  
   background-color: #D9D9D9;
   padding: 3rem;
   width: 100%;
@@ -82,11 +82,11 @@
 
 /* Imagem */
 .all {
-  flex: 0 0 40%;                /* ocupa 40% do espaço */
-  max-width: 800px;             /* evita imagem gigante */
+  flex: 0 0 40%;             
+  max-width: 800px;             
   width: 100%;
-  height: auto;                 /* mantém proporção */
-  border-radius: 12px;          /* cantos suaves */
+  height: auto;                 
+  border-radius: 12px;          
   object-fit: cover;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }

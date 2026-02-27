@@ -62,28 +62,25 @@ const ContestForm = () => {
 
     try {
       const h = Number(form.durationHours) || 0;
-const m = Number(form.durationMinutes) || 0;
+      const m = Number(form.durationMinutes) || 0;
 
-if (h === 0 && m === 0) {
-  toast.error("Informe uma duração maior que zero.");
-  setLoading(false);
-  return;
-}
+      if (h === 0 && m === 0) {
+        toast.error("Informe uma duração maior que zero.");
+        setLoading(false);
+        return;
+      }
 
-if (m >= 60) {
-  toast.error("Minutos devem ser menores que 60.");
-  setLoading(false);
-  return;
-}
+      if (m >= 60) {
+        toast.error("Minutos devem ser menores que 60.");
+        setLoading(false);
+        return;
+      }
 
-if(!form.name){
-  toast.error("O contest deve ter um nome");
-  setLoading(false);
-  return;
-}
-
-
-
+      if (!form.name) {
+        toast.error("O contest deve ter um nome");
+        setLoading(false);
+        return;
+      }
       const payload = {
         name: form.name,
         durationMinutes: h * 60 + m,
@@ -146,25 +143,25 @@ if(!form.name){
               <label>Duração</label>
 
               <div className="input-with-unit">
-  <input
-    type="number"
-    min="0"
-    placeholder="0"
-    value={form.durationHours}
-    onChange={e => handleChange("durationHours", e.target.value)}
-  />
-  <span>h</span>
+                <input
+                  type="number"
+                  min="0"
+                  placeholder="0"
+                  value={form.durationHours}
+                  onChange={e => handleChange("durationHours", e.target.value)}
+                />
+                <span>h</span>
 
-  <input
-    type="number"
-    min="0"
-    max="59"
-    placeholder="0"
-    value={form.durationMinutes}
-    onChange={e => handleChange("durationMinutes", e.target.value)}
-  />
-  <span>min</span>
-</div>
+                <input
+                  type="number"
+                  min="0"
+                  max="59"
+                  placeholder="0"
+                  value={form.durationMinutes}
+                  onChange={e => handleChange("durationMinutes", e.target.value)}
+                />
+                <span>min</span>
+              </div>
             </div>
 
             <div className="field full">

@@ -321,7 +321,7 @@ textarea:focus {
 @media (max-width: 1024px) {
   .form {
     max-width: 90%;
-    height: auto; /* remove altura fixa */
+    height: auto; 
   }
 
   .stepper {
@@ -329,10 +329,6 @@ textarea:focus {
   }
 }
 
-
-/* ============================= */
-/* 📱 MOBILE (até 768px) */
-/* ============================= */
 @media (max-width: 768px) {
   
   .material-form {
@@ -342,7 +338,7 @@ textarea:focus {
   .form {
     padding: 1.5rem;
     border-radius: 10px;
-    height: auto; /* remove altura fixa */
+    height: auto; 
     max-height: 90vh;
   }
 
@@ -370,10 +366,6 @@ textarea:focus {
   }
 }
 
-
-/* ============================= */
-/* 📱 MOBILE PEQUENO (até 480px) */
-/* ============================= */
 @media (max-width: 480px) {
 
   .form {
