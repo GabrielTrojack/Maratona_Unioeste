@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./ContestForm.css";
-import { createContest, updateContest, getContestById } from "../../services/contestService";
+import {
+  createContest,
+  updateContest,
+  getContestById
+} from "../../services/contestService";
 import { useParams, useNavigate } from "react-router-dom";
-
 import toast from "react-hot-toast";
 
 const ContestForm = () => {
@@ -13,6 +16,7 @@ const ContestForm = () => {
   const [form, setForm] = useState({
     name: "",
     durationHours: "",
+    durationMinutes: "",
     startDateTime: "",
     teamBased: true,
     codeforcesMirrorUrl: ""
@@ -31,9 +35,12 @@ const ContestForm = () => {
       try {
         const data = await getContestById(id);
 
+        const totalMinutes = data.durationMinutes;
+
         setForm({
           name: data.name,
-          durationHours: data.durationMinutes / 60,
+          durationHours: Math.floor(totalMinutes / 60),
+          durationMinutes: totalMinutes % 60,
           startDateTime: data.startDateTime.slice(0, 16),
           teamBased: data.teamBased,
           codeforcesMirrorUrl: data.codeforcesMirrorUrl || ""
@@ -41,8 +48,7 @@ const ContestForm = () => {
 
       } catch (err) {
         toast.error("Erro ao carregar contest.");
-
-          navigate("/contests");
+        navigate("/contests");
       }
     }
 
@@ -50,14 +56,37 @@ const ContestForm = () => {
   }, [id, isEditMode, navigate]);
 
   async function handleSubmit(e) {
-    if (loading) return;
     e.preventDefault();
+    if (loading) return;
     setLoading(true);
 
     try {
+      const h = Number(form.durationHours) || 0;
+const m = Number(form.durationMinutes) || 0;
+
+if (h === 0 && m === 0) {
+  toast.error("Informe uma duração maior que zero.");
+  setLoading(false);
+  return;
+}
+
+if (m >= 60) {
+  toast.error("Minutos devem ser menores que 60.");
+  setLoading(false);
+  return;
+}
+
+if(!form.name){
+  toast.error("O contest deve ter um nome");
+  setLoading(false);
+  return;
+}
+
+
+
       const payload = {
         name: form.name,
-        durationMinutes: Number(form.durationHours) * 60,
+        durationMinutes: h * 60 + m,
         startDateTime: new Date(form.startDateTime).toISOString(),
         teamBased: form.teamBased,
         codeforcesMirrorUrl: form.codeforcesMirrorUrl || ""
@@ -71,9 +100,7 @@ const ContestForm = () => {
         toast.success("Contest criado com sucesso!");
       }
 
-      setTimeout(() => {
-        navigate("/contests");
-      }, 800);
+      setTimeout(() => navigate("/contests"), 800);
 
     } catch (err) {
       console.log("Erro completo:", err);
@@ -87,6 +114,7 @@ const ContestForm = () => {
       } else {
         toast.error(err.message || "Erro ao salvar contest.");
       }
+
     } finally {
       setLoading(false);
     }
@@ -111,22 +139,32 @@ const ContestForm = () => {
                 placeholder="Ex: Maratona Unioeste"
                 value={form.name}
                 onChange={e => handleChange("name", e.target.value)}
-                required
               />
             </div>
 
             <div className="field">
               <label>Duração</label>
+
               <div className="input-with-unit">
-                <input
-                  type="number"
-                  min="1"
-                  value={form.durationHours}
-                  onChange={e => handleChange("durationHours", e.target.value)}
-                  required
-                />
-                <span>h</span>
-              </div>
+  <input
+    type="number"
+    min="0"
+    placeholder="0"
+    value={form.durationHours}
+    onChange={e => handleChange("durationHours", e.target.value)}
+  />
+  <span>h</span>
+
+  <input
+    type="number"
+    min="0"
+    max="59"
+    placeholder="0"
+    value={form.durationMinutes}
+    onChange={e => handleChange("durationMinutes", e.target.value)}
+  />
+  <span>min</span>
+</div>
             </div>
 
             <div className="field full">
@@ -165,11 +203,19 @@ const ContestForm = () => {
         </section>
 
         <div className="actions">
-          <button type="button" className="secondary" onClick={() => navigate("/contests")}>
+          <button
+            type="button"
+            className="secondary"
+            onClick={() => navigate("/contests")}
+          >
             Cancelar
           </button>
 
-          <button type="submit" className="primary" disabled={loading}>
+          <button
+            type="submit"
+            className="primary"
+            disabled={loading}
+          >
             {loading
               ? isEditMode ? "Salvando..." : "Criando..."
               : isEditMode ? "Salvar alterações" : "Criar contest"}

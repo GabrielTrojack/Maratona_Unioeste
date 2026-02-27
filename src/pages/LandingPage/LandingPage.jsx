@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"
 import "./LandingPage.css";
+import  img  from ".././../assets/fotos.jpeg";
 
 const Landing = () => {
+  const navigate = useNavigate(); 
   return (
     <div className="landing-page">
       <div className="landing-content">
@@ -10,14 +13,16 @@ const Landing = () => {
           <div className="join">
             <h1>Maratona<br />UNIOESTE</h1>
             <p>Rumo ao topo da programação!</p>
-            <button>Participe</button>
+            <button onClick={() => navigate(`/class`)}>Participe</button>
           </div>
 
-          {/* <img src={trofeu} alt="Logo MU" className="trofeu-img" /> */}
         </div>
-        {/* <img src={carlos} alt="ESSE É O CARLOS" className="carlos-img" /> */}
+
         <div className="about">
 
+          <div className="image-wrapper">
+            <img src={img} alt="Maratona" className="all" />
+          </div>
           <div className="we">
             <p>Quem somos?</p>
             <p>
@@ -30,7 +35,6 @@ const Landing = () => {
               🚀 Quer aprender mais e competir com os melhores? Junte-se a nós e comece sua jornada na programação competitiva
             </p>
           </div>
-          <div className="diag"></div>
         </div>
       </div>
     </div>

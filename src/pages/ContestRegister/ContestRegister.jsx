@@ -48,11 +48,13 @@ const ContestRegister = () => {
     <div className="teams-page">
       <div className="teams-content">
 
-        <h1>{teams.length}{isTeamBased ? "Times" : "Participantes"} Inscritos</h1>
-
-        <p>
+        <h1>{isTeamBased ? "Times" : "Participantes"} Inscritos: {teams.length} </h1>
+        {!teams.length && (
+          <p>
           Nenhum {isTeamBased ? "time" : "participante"} inscrito neste contest.
-        </p>
+        </p>  
+        )}
+        
 
         {teams.map((team) => {
 
