@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
+import { FileDown  } from "lucide-react";
 
 import toast from "react-hot-toast";
 
@@ -15,7 +16,6 @@ const ContestRegister = () => {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const isTeamBased = location.state?.isTeamBased;
-
 
   async function loadTeams() {
     try {
@@ -42,13 +42,69 @@ const ContestRegister = () => {
     loadTeams();
   }, [id]);
 
+  function generateBocaFile() {
+  if (!teams.length) {
+    toast.error("Nenhum time para exportar.");
+    return;
+  }
+
+  let content = "[user]\n\n";
+
+  teams.forEach((team, index) => {
+    const userNumber = index + 1;
+    const username = team.teamName
+      ? team.teamName.toLowerCase().replace(/\s+/g, "")
+      : `team${userNumber}`;
+
+    const password = Math.random().toString(36).slice(-8);
+
+    const competitors = [
+      team.competitor1Name,
+      team.competitor2Name,
+      team.competitor3Name
+    ].filter(Boolean).join(", ");
+
+    content += `usernumber=${userNumber}\n`;
+    content += `usersitenumber=1\n`;
+    content += `username=${username}\n`;
+    content += `userpassword=${password}\n`;
+    content += `userfullname=[${team.institution || "INST"}] ${team.teamName || team.competitor1Name}\n`;
+    content += `userdesc=[${team.institution || "INST"}] ${competitors}\n\n`;
+  });
+
+  const blob = new Blob([content], { type: "text/plain;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.setAttribute("download", "boca_users.txt");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  toast.success("Arquivo gerado com sucesso!");
+}
+
+
+
   if (loading) return <FullScreenLoader />;
 
   return (
     <div className="teams-page">
       <div className="teams-content">
 
-        <h1>{isTeamBased ? "Times" : "Participantes"} Inscritos: {teams.length} </h1>
+        <div className="header">
+          <h1>{isTeamBased ? "Times" : "Participantes"} Inscritos: {teams.length} </h1>
+
+          <button 
+            className="export-button" 
+            onClick={generateBocaFile}
+            title="Gerar arquivo BOCA"  
+          >
+            <FileDown size={18} />
+          </button>
+        </div>
+
         {!teams.length && (
           <p>
           Nenhum {isTeamBased ? "time" : "participante"} inscrito neste contest.
@@ -82,7 +138,7 @@ const ContestRegister = () => {
             team.competitor2Name,
             team.competitor3Name
           ].filter(Boolean);
-
+      
           return (
             <div key={team.id} className="team-card">
               <div className="teamName">

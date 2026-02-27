@@ -84,7 +84,7 @@ const ContestForm = () => {
       const payload = {
         name: form.name,
         durationMinutes: h * 60 + m,
-        startDateTime: new Date(form.startDateTime).toISOString(),
+        startDateTime: form.startDateTime,
         teamBased: form.teamBased,
         codeforcesMirrorUrl: form.codeforcesMirrorUrl || ""
       };
